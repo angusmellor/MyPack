@@ -13,6 +13,6 @@ app
   .use(express.json())
   .use(router)
 
-app.listen(3001, () => {
-  console.log(`Server running at http://localhost:3001`)
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`)
 })

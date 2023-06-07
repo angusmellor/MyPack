@@ -14,7 +14,7 @@ app
     .use((0, cors_1.default)())
     .use(express_1.default.json())
     .use(router_1.router);
-app.listen(3001, function () {
-    console.log("Server running at http://localhost:3001");
+app.listen(port, function () {
+    console.log("Server running at http://localhost:".concat(port));
 });
 //# sourceMappingURL=index.js.map
