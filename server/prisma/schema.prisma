@@ -34,7 +34,7 @@ model Item {
   categoryId Int
   description String
   weight Float
-  cost Float 
+  cost Float ?
   users UserItem[]
   packs PackItem[]
 }
@@ -63,13 +63,13 @@ model PackItem {
 
 model CategoryName {
   id Int @id @default(autoincrement())
-  category String 
+  category String @unique
   items Item[]
 }
 
 model ItemName {
   id Int @id @default(autoincrement())
-  name String
+  name String @unique
   items Item[]
 }
 
