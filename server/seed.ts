@@ -58,6 +58,8 @@ async function main() {
   }
   console.log('Item names added')
   console.log('Seeding finished.')
+  // const allUsers = await prisma.user.findMany()
+  // console.log(allUsers)
 
 }
 
