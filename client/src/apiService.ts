@@ -1,10 +1,12 @@
-const serverURL = 'http://localhost:3005/'
+import { Item, Pack } from "./lib/types";
 
-type GetArg = 'items' | 'packs' | 'categories'
+const serverURL = 'http://localhost:3001/';
 
-const getUserItems = async (user_id: number) => {
+type GetReqArg = 'items' | 'packs' | 'categories';
+
+const getUserItems = async (userId: number) => {
   try {
-    const res = await fetch(serverURL + user_id + '/items')
+    const res = await fetch(serverURL + 'users/' + userId + '/items')
     const items = await res.json();
     console.log('Success: ', items );
     return items;
@@ -13,9 +15,9 @@ const getUserItems = async (user_id: number) => {
   }
 }
 
-const getUserPacks = async (user_id: number) => {
+const getUserPacks = async (userId: number) => {
   try {
-    const res = await fetch(serverURL + user_id + '/packs')
+    const res = await fetch(serverURL + 'users/' + userId + '/packs');
     const packs = await res.json();
     console.log('Success: ', packs );
     return packs;
@@ -24,19 +26,94 @@ const getUserPacks = async (user_id: number) => {
   }
 }
 
-const getAll = async (param: GetArg) => {
+const getPackItems =async (packId: number) => {
+    try {
+      const res = await fetch(serverURL + 'packs/' + packId + '/items');
+      const items = await res.json();
+      console.log('Sucess: ', items);
+      return items
+    } catch (e) {
+      console.log('Error: ', e)
+    }
+}
+
+const getAll = async (arg: GetReqArg) => {
   try {
-    const res = await fetch (serverURL + `/${param}`);
+    const res = await fetch (serverURL + arg);
     const result = await res.json();
     console.log('Success ', result);
     return result;
   } catch (e) {
-    console.log('Error :', e)
+    console.log('Error :', e);
+  }
+}
+
+const addItem = async (item: Item, userId: number) => {
+  try {
+    const res = await fetch(serverURL + 'items', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({item: item, userId: userId})
+    });
+    const result = await res.json();
+    return result
+  } catch (e) {
+    console.log('Error :', e);
+  }
+}
+
+const addPack = async (pack: Pack) => {
+  try {
+    const res = await fetch(serverURL + 'packs', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(pack)
+    });
+    const result = await res.json();
+    return result
+  } catch (e) {
+    console.log('Error :', e);
+  }
+}
+
+const connectItemToPack = async (itemId: number, packId: number) => {
+  try {
+    const res = await fetch( serverURL + `items/${itemId}/packs/${packId}`, {
+      method: 'PUT'
+    });
+    const result = await res.json();
+    return result
+  } catch (e) {
+    console.log('Error :', e);
+  }
+}
+
+const connectItemToUser = async (itemId: number, userId: number) => {
+  try {
+    const res = await fetch( serverURL + `items/${itemId}/packs/${userId}`, {
+      method: 'PUT'
+    });
+    const result = await res.json();
+    return result
+  } catch (e) {
+    console.log('Error :', e);
   }
 }
 
 export const apiService = { 
   getUserItems, 
-  getUserPacks, 
-  getAll
+  getUserPacks,
+  getPackItems, 
+  getAll,
+  addPack,
+  addItem,
+  connectItemToPack,
+  connectItemToUser
 }
+

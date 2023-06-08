@@ -8,3 +8,11 @@ export interface Pack {
   isGroup: boolean;
   isFemaile: boolean;
 }
+
+export interface Item {
+  name: string;
+  categoryId: number;
+  description: string;
+  weight: number;
+  cost?: number;
+}

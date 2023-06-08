@@ -20,5 +20,4 @@ router.get('/packs/:id/items', packController.getPackItems);
 router.put('/items/:itemId/users/:userId', itemController.connectToUser);
 router.put('/items/:itemId/packs/:packId', itemController.connectToPack);
 
-
 export { router };

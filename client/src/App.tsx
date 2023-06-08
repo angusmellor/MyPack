@@ -1,7 +1,11 @@
+import { apiService } from "./apiService"
 import { SideBar } from "./components/sidebar"
 import { UserPack } from "./components/userPack"
 
 function App() {
+
+  const test = apiService.getAll('items');
+  console.log(test);
 
   return (
     <>
