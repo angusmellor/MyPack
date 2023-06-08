@@ -4,6 +4,7 @@ import { cn } from "../lib/utils";
 import { Compass, Plus } from 'lucide-react'
 import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { Badge } from "./ui/badge";
 import packImgUrl from "../assets/backpack.png"
 
@@ -34,10 +35,17 @@ export function UserPack({className, pack}: UserPackProps) {
         </div>
         <div className="flex justify-start my-2">
           <div className="mr-8">
-            <img src={packImgUrl} className=" h-40 "></img>
+            <img src={packImgUrl} className=" h-40 min-w-min"></img>
           </div>
           <div>
-            pack tabs
+          <Tabs defaultValue="summary" className="w-[400px]">
+            <TabsList>
+              <TabsTrigger value="summary">Summary</TabsTrigger>
+              <TabsTrigger value="categories">Categories</TabsTrigger>
+            </TabsList>
+            <TabsContent value="summary">Pack Summary</TabsContent>
+            <TabsContent value="categories">Category Breakdown</TabsContent>
+          </Tabs>
           </div>
         </div>
         <div className="flex justify-start">

@@ -9,7 +9,6 @@ function App() {
         <SideBar className="col-span-3"/>
         <UserPack className="col-span-9"/>
       </div>
-      
     </>
   )
 }
