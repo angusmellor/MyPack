@@ -5,6 +5,7 @@ import { Compass, Plus } from 'lucide-react'
 import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Badge } from "./ui/badge";
+import packImgUrl from "../assets/backpack.png"
 
 type UserPackProps = {
   className: string
@@ -31,8 +32,13 @@ export function UserPack({className, pack}: UserPackProps) {
           <Compass className=" h-4"/>
           {testPack.trail}
         </div>
-        <div>
-          pack dashboard
+        <div className="flex justify-start my-2">
+          <div className="mr-8">
+            <img src={packImgUrl} className=" h-40 "></img>
+          </div>
+          <div>
+            pack tabs
+          </div>
         </div>
         <div className="flex justify-start">
           {testPack.tags.map((tag) => {
