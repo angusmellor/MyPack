@@ -14,29 +14,20 @@ model User {
   id    Int @id @default(autoincrement())
   email String
   password String?
-  userItems UserItem[]
-  userPacks Pack[]
-}
-
-model UserItem {
-  id     Int   @id @default(autoincrement()) @unique
-  user   User  @relation(fields: [userId], references: [id])
-  userId Int
-  item   Item  @relation(fields: [itemId], references: [id])
-  itemId Int
+  items Item[]
+  packs Pack[]
 }
 
 model Item {
   id Int @id @default(autoincrement())
-  name ItemName @relation(fields: [nameId], references: [id])
-  nameId Int
+  name String
   category CategoryName @relation(fields: [categoryId], references: [id])
   categoryId Int
   description String
   weight Float
   cost Float ?
-  users UserItem[]
-  packs PackItem[]
+  users User[]
+  packs Pack[]
 }
 
 model Pack {
@@ -44,21 +35,12 @@ model Pack {
   user User @relation(fields: [userId], references: [id])
   userId Int
   trail String
-  winter Boolean @default(false)
-  summer Boolean @default(false)
-  solo Boolean @default(true)
-  group Boolean @default(false)
-  female Boolean @default(false)
-  packItems PackItem[]
-}
-
-model PackItem {
-  id Int @id @default(autoincrement())
-  pack Pack @relation(fields: [packId], references: [id])
-  packId Int
-  item Item @relation(fields: [itemId], references: [id])
-  itemId Int
-
+  isWinter Boolean @default(false)
+  isSummer Boolean @default(false)
+  isSolo Boolean @default(true)
+  isGroup Boolean @default(false)
+  isFemale Boolean @default(false)
+  packItems Item[]
 }
 
 model CategoryName {
@@ -66,11 +48,3 @@ model CategoryName {
   category String @unique
   items Item[]
 }
-
-model ItemName {
-  id Int @id @default(autoincrement())
-  name String @unique
-  items Item[]
-}
-
-
