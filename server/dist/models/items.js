@@ -58,7 +58,7 @@ var addItem = function (item) { return __awaiter(void 0, void 0, void 0, functio
         }
     });
 }); };
-var getAllItems = function () { return __awaiter(void 0, void 0, void 0, function () {
+var getAll = function () { return __awaiter(void 0, void 0, void 0, function () {
     var allItems, e_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -76,5 +76,5 @@ var getAllItems = function () { return __awaiter(void 0, void 0, void 0, functio
         }
     });
 }); };
-exports.itemModel = { addItem: addItem, getAllItems: getAllItems };
+exports.itemModel = { addItem: addItem, getAll: getAll };
 //# sourceMappingURL=items.js.map

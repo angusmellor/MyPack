@@ -3,32 +3,11 @@ import { PrismaClient, Prisma } from '@prisma/client'
 const prisma = new PrismaClient();
 
 const categories: Prisma.CategoryNameCreateInput[] = [
-  {category: 'Cook System'},
   {category: 'Big Four'},
+  {category: 'Cook System'},
   {category: 'Electronics'},
   {category: 'Clothing'},
   {category: 'Miscellaneous'}
-]
-
-const itemNames: Prisma.ItemNameCreateInput[] = [
-  {name: 'Pack'},
-  {name: 'Sleeping Bag'},
-  {name: 'Sleeping Mat'},
-  {name: 'Tent'},
-  {name: 'Bear Can'},
-  {name: 'Pegs'},
-  {name: 'Dry Bag'},
-  {name: 'Phone'},
-  {name: 'Battery'},
-  {name: 'Shoes'},
-  {name: 'Shorts'},
-  {name: 'Shirt'},
-  {name: 'Hat'},
-  {name: 'Stove'},
-  {name: 'Pot'},
-  {name: 'Spoon'},
-  {name: 'Rain Jacket'},
-  {name: 'Torch'}
 ]
 
 const userData: Prisma.UserCreateInput[] = [
@@ -51,15 +30,9 @@ async function main() {
     })
   }
   console.log('Categories added')
-  for (const i of itemNames) {
-    const itemName = await prisma.itemName.create({
-      data: i
-    })
-  }
-  console.log('Item names added')
   console.log('Seeding finished.')
-  // const allUsers = await prisma.user.findMany()
-  // console.log(allUsers)
+  const allUsers = await prisma.user.findMany()
+  console.log(allUsers)
 
 }
 

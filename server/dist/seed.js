@@ -39,31 +39,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var client_1 = require("@prisma/client");
 var prisma = new client_1.PrismaClient();
 var categories = [
-    { category: 'Cook System' },
     { category: 'Big Four' },
+    { category: 'Cook System' },
     { category: 'Electronics' },
     { category: 'Clothing' },
     { category: 'Miscellaneous' }
-];
-var itemNames = [
-    { name: 'Pack' },
-    { name: 'Sleeping Bag' },
-    { name: 'Sleeping Mat' },
-    { name: 'Tent' },
-    { name: 'Bear Can' },
-    { name: 'Pegs' },
-    { name: 'Dry Bag' },
-    { name: 'Phone' },
-    { name: 'Battery' },
-    { name: 'Shoes' },
-    { name: 'Shorts' },
-    { name: 'Shirt' },
-    { name: 'Hat' },
-    { name: 'Stove' },
-    { name: 'Pot' },
-    { name: 'Spoon' },
-    { name: 'Rain Jacket' },
-    { name: 'Torch' }
 ];
 var userData = [
     { email: 'angus@example.com' },
@@ -72,13 +52,13 @@ var userData = [
 ];
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var _i, userData_1, u, user, _a, categories_1, c, categories_2, _b, itemNames_1, i, itemName;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var _i, userData_1, u, user, _a, categories_1, c, categories_2, allUsers;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
                     console.log('Start seeding ...');
                     _i = 0, userData_1 = userData;
-                    _c.label = 1;
+                    _b.label = 1;
                 case 1:
                     if (!(_i < userData_1.length)) return [3 /*break*/, 4];
                     u = userData_1[_i];
@@ -86,15 +66,15 @@ function main() {
                             data: u
                         })];
                 case 2:
-                    user = _c.sent();
-                    _c.label = 3;
+                    user = _b.sent();
+                    _b.label = 3;
                 case 3:
                     _i++;
                     return [3 /*break*/, 1];
                 case 4:
                     console.log('Users added');
                     _a = 0, categories_1 = categories;
-                    _c.label = 5;
+                    _b.label = 5;
                 case 5:
                     if (!(_a < categories_1.length)) return [3 /*break*/, 8];
                     c = categories_1[_a];
@@ -102,30 +82,18 @@ function main() {
                             data: c
                         })];
                 case 6:
-                    categories_2 = _c.sent();
-                    _c.label = 7;
+                    categories_2 = _b.sent();
+                    _b.label = 7;
                 case 7:
                     _a++;
                     return [3 /*break*/, 5];
                 case 8:
                     console.log('Categories added');
-                    _b = 0, itemNames_1 = itemNames;
-                    _c.label = 9;
-                case 9:
-                    if (!(_b < itemNames_1.length)) return [3 /*break*/, 12];
-                    i = itemNames_1[_b];
-                    return [4 /*yield*/, prisma.itemName.create({
-                            data: i
-                        })];
-                case 10:
-                    itemName = _c.sent();
-                    _c.label = 11;
-                case 11:
-                    _b++;
-                    return [3 /*break*/, 9];
-                case 12:
-                    console.log('Item names added');
                     console.log('Seeding finished.');
+                    return [4 /*yield*/, prisma.user.findMany()];
+                case 9:
+                    allUsers = _b.sent();
+                    console.log(allUsers);
                     return [2 /*return*/];
             }
         });

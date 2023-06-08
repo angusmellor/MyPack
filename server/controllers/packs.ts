@@ -1,7 +1,7 @@
-import { itemModel } from '../models/items';
+import { packModel } from '../models/packs';
 import { Request, Response } from 'express';
 
-const addItem = async (req: Request, res: Response) => {
+const addPack = async (req: Request, res: Response) => {
   // const args = ['nameId', 'categoryId', 'description', 'weight']
   // const requiredArgs = args.reduce((acc, curr) => {
   //   return req.body.hasOwnProperty(curr) && acc ? acc : '';
@@ -11,7 +11,7 @@ const addItem = async (req: Request, res: Response) => {
   //   res.send();
   // }
   try {
-    const response = await itemModel.addItem(req.body);
+    const response = await packModel.addPack(req.body);
     res.status(201);
     res.send(response);
   } catch (err) {
@@ -22,7 +22,7 @@ const addItem = async (req: Request, res: Response) => {
 
 const getAll = async (req: Request, res: Response) => {
   try {
-    const response = await itemModel.getAll();
+    const response = await packModel.getAll();
     res.status(201);
     res.send(response);
   } catch (err) {
@@ -31,4 +31,4 @@ const getAll = async (req: Request, res: Response) => {
   }
 }
 
-export const itemController = { addItem, getAll};
+export const packController = { addPack, getAll};

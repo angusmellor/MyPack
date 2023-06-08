@@ -1,12 +1,5 @@
 import { prisma } from './db';
-
-interface Item {
-  nameId: number;
-  categoryId: number;
-  description: string;
-  weight: number;
-  cost?: number;
-}
+import { Item } from '../types';
 
 const addItem = async (item: Item) => {
   try {
@@ -18,7 +11,7 @@ const addItem = async (item: Item) => {
     console.log(e);
   }
 }
-const getAllItems = async () => {
+const getAll = async () => {
   try {
     const allItems = await prisma.item.findMany();
     return allItems
@@ -27,4 +20,4 @@ const getAllItems = async () => {
   }
 }
 
-export const itemModel = {addItem, getAllItems}
+export const itemModel = {addItem, getAll}

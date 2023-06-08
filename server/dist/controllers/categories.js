@@ -36,15 +36,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.itemController = void 0;
-var items_1 = require("../models/items");
-var addItem = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+exports.catController = void 0;
+var categories_1 = require("../models/categories");
+var getAll = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var response, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, items_1.itemModel.addItem(req.body)];
+                return [4 /*yield*/, categories_1.catModel.getAll()];
             case 1:
                 response = _a.sent();
                 res.status(201);
@@ -59,26 +59,5 @@ var addItem = function (req, res) { return __awaiter(void 0, void 0, void 0, fun
         }
     });
 }); };
-var getAll = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var response, err_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, items_1.itemModel.getAll()];
-            case 1:
-                response = _a.sent();
-                res.status(201);
-                res.send(response);
-                return [3 /*break*/, 3];
-            case 2:
-                err_2 = _a.sent();
-                console.log(err_2);
-                res.status(500);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-exports.itemController = { addItem: addItem, getAll: getAll };
-//# sourceMappingURL=items.js.map
+exports.catController = { getAll: getAll };
+//# sourceMappingURL=categories.js.map
