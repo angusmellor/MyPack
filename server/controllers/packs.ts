@@ -31,4 +31,16 @@ const getAll = async (req: Request, res: Response) => {
   }
 }
 
-export const packController = { addPack, getAll};
+const getUserPacks = async (req: Request, res: Response) => {
+  try {
+    const userId = Number(req.params.id)
+    const response = await packModel.getUserPacks(userId);
+    res.status(201);
+    res.send(response);
+  } catch (err) {
+    console.log(err);
+    res.status(500);
+  }
+}
+
+export const packController = { addPack, getAll, getUserPacks};

@@ -20,4 +20,17 @@ const getAll = async () => {
   }
 }
 
-export const packModel = {addPack, getAll}
+const getUserPacks = async (userId: number) => {
+  try {
+    const userPacks = await prisma.pack.findMany({
+      where: {
+        userId: userId
+      }
+    })
+    return userPacks
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export const packModel = {addPack, getAll, getUserPacks}

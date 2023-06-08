@@ -31,4 +31,16 @@ const getAll = async (req: Request, res: Response) => {
   }
 }
 
-export const itemController = { addItem, getAll};
+const getUserItems = async (req: Request, res: Response) => {
+  try {
+    const userId = Number(req.params.id)
+    const response = await itemModel.getUserItems(userId);
+    res.status(201);
+    res.send(response);
+  } catch (err) {
+    console.log(err);
+    res.status(500);
+  }
+}
+
+export const itemController = { addItem, getAll, getUserItems};
