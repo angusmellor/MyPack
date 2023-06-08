@@ -38,8 +38,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.packModel = void 0;
 var db_1 = require("./db");
+var getAll = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var allPacks, e_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, db_1.prisma.pack.findMany()];
+            case 1:
+                allPacks = _a.sent();
+                return [2 /*return*/, allPacks];
+            case 2:
+                e_1 = _a.sent();
+                console.log(e_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
 var addPack = function (pack) { return __awaiter(void 0, void 0, void 0, function () {
-    var addedPack, e_1;
+    var addedPack, e_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -51,24 +69,6 @@ var addPack = function (pack) { return __awaiter(void 0, void 0, void 0, functio
                 addedPack = _a.sent();
                 return [2 /*return*/, addedPack];
             case 2:
-                e_1 = _a.sent();
-                console.log(e_1);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-var getAll = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var allPacks, e_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, db_1.prisma.pack.findMany()];
-            case 1:
-                allPacks = _a.sent();
-                return [2 /*return*/, allPacks];
-            case 2:
                 e_2 = _a.sent();
                 console.log(e_2);
                 return [3 /*break*/, 3];
@@ -76,5 +76,30 @@ var getAll = function () { return __awaiter(void 0, void 0, void 0, function () 
         }
     });
 }); };
-exports.packModel = { addPack: addPack, getAll: getAll };
+var getPackItems = function (packId) { return __awaiter(void 0, void 0, void 0, function () {
+    var packItems, e_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, db_1.prisma.pack.findMany({
+                        where: {
+                            id: packId
+                        },
+                        select: {
+                            packItems: true
+                        }
+                    })];
+            case 1:
+                packItems = _a.sent();
+                return [2 /*return*/, packItems];
+            case 2:
+                e_3 = _a.sent();
+                console.log(e_3);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.packModel = { addPack: addPack, getAll: getAll, getPackItems: getPackItems };
 //# sourceMappingURL=packs.js.map

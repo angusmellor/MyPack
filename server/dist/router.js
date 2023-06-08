@@ -12,7 +12,9 @@ router.post('/items', items_1.itemController.addItem);
 router.post('/packs', packs_1.packController.addPack);
 router.get('/items', items_1.itemController.getAll);
 router.get('/packs', packs_1.packController.getAll);
-router.get('/:id/packs', users_1.userController.getPacks);
-router.get('/:id/items', users_1.userController.getItems);
 router.get('/categories', categories_1.catController.getAll);
+router.get('/user/:id/packs', users_1.userController.getPacks);
+router.get('/users/:id/items', users_1.userController.getItems);
+router.put('items/user', items_1.itemController.connectToUser);
+router.put('item/pack', items_1.itemController.connectToPack);
 //# sourceMappingURL=router.js.map

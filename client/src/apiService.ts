@@ -1,6 +1,6 @@
 const serverURL = 'http://localhost:3005/'
 
-type GetArg = 'items' | 'packs' | 'names' | 'categories'
+type GetArg = 'items' | 'packs' | 'categories'
 
 const getUserItems = async (user_id: number) => {
   try {

@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -38,14 +49,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.itemModel = void 0;
 var db_1 = require("./db");
-var addItem = function (item) { return __awaiter(void 0, void 0, void 0, function () {
+var addItem = function (userId, item) { return __awaiter(void 0, void 0, void 0, function () {
     var addedItem, e_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 return [4 /*yield*/, db_1.prisma.item.create({
-                        data: item
+                        data: __assign(__assign({}, item), { users: {
+                                connect: {
+                                    id: userId
+                                }
+                            } })
                     })];
             case 1:
                 addedItem = _a.sent();
@@ -76,5 +91,69 @@ var getAll = function () { return __awaiter(void 0, void 0, void 0, function () 
         }
     });
 }); };
-exports.itemModel = { addItem: addItem, getAll: getAll };
+var connectToUser = function (itemId, userId) { return __awaiter(void 0, void 0, void 0, function () {
+    var connectedUsers, e_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, db_1.prisma.item.update({
+                        where: {
+                            id: itemId
+                        },
+                        data: {
+                            users: {
+                                connect: {
+                                    id: userId
+                                }
+                            }
+                        },
+                        include: {
+                            users: true
+                        }
+                    })];
+            case 1:
+                connectedUsers = _a.sent();
+                return [2 /*return*/, connectedUsers];
+            case 2:
+                e_3 = _a.sent();
+                console.log(e_3);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+var connectToPack = function (itemId, packId) { return __awaiter(void 0, void 0, void 0, function () {
+    var connectedPacks, e_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, db_1.prisma.item.update({
+                        where: {
+                            id: itemId
+                        },
+                        data: {
+                            packs: {
+                                connect: {
+                                    id: packId
+                                }
+                            }
+                        },
+                        include: {
+                            packs: true
+                        }
+                    })];
+            case 1:
+                connectedPacks = _a.sent();
+                return [2 /*return*/, connectedPacks];
+            case 2:
+                e_4 = _a.sent();
+                console.log(e_4);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.itemModel = { addItem: addItem, getAll: getAll, connectToUser: connectToUser, connectToPack: connectToPack };
 //# sourceMappingURL=items.js.map

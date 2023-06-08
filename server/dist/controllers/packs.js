@@ -80,5 +80,27 @@ var getAll = function (req, res) { return __awaiter(void 0, void 0, void 0, func
         }
     });
 }); };
-exports.packController = { addPack: addPack, getAll: getAll };
+var getPackItems = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var packId, response, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                packId = Number(req.params.id);
+                return [4 /*yield*/, packs_1.packModel.getPackItems(packId)];
+            case 1:
+                response = _a.sent();
+                res.status(201);
+                res.send(response);
+                return [3 /*break*/, 3];
+            case 2:
+                err_3 = _a.sent();
+                console.log(err_3);
+                res.status(500);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.packController = { addPack: addPack, getAll: getAll, getPackItems: getPackItems };
 //# sourceMappingURL=packs.js.map

@@ -11,7 +11,7 @@ const addItem = async (req: Request, res: Response) => {
   //   res.send();
   // }
   try {
-    const response = await itemModel.addItem(req.body);
+    const response = await itemModel.addItem(req.body.id, req.body.item);
     res.status(201);
     res.send(response);
   } catch (err) {
@@ -31,4 +31,25 @@ const getAll = async (req: Request, res: Response) => {
   }
 }
 
-export const itemController = { addItem, getAll};
+const connectToPack =async (req: Request, res: Response) => {
+  try {
+    const response = await itemModel.connectToPack(req.body.itemId, req.body.packId);
+    res.status(201);
+    res.send(response);
+  } catch (err) {
+    console.log(err);
+    res.status(500);
+  }
+}
+
+const connectToUser = async (req: Request, res: Response) => {
+  try {
+    const response = await itemModel.connectToUser(req.body.itemId, req.body.userId);
+    res.status(201);
+    res.send(response);
+  } catch (err) {
+    console.log(err);
+    res.status(500);
+  }
+}
+export const itemController = { addItem, getAll, connectToPack, connectToUser };

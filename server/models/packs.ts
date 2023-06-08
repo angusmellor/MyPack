@@ -1,16 +1,6 @@
 import { prisma } from './db';
 import { Pack } from '../types';
 
-const addPack = async (pack: Pack) => {
-  try{
-    const addedPack = await prisma.pack.create({
-      data: pack
-    })
-    return addedPack;
-  } catch (e) {
-    console.log(e);
-  }
-}
 const getAll = async () => {
   try {
     const allPacks = await prisma.pack.findMany();
@@ -20,4 +10,31 @@ const getAll = async () => {
   }
 }
 
-export const packModel = {addPack, getAll}
+const addPack = async (pack: Pack) => {
+  try {
+    const addedPack = await prisma.pack.create({
+      data: pack
+    })
+    return addedPack;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+const getPackItems = async (packId: number) => {
+  try {
+    const packItems = await prisma.pack.findMany({
+     where: {
+      id: packId
+     },
+     select: {
+      packItems: true
+     }
+    });
+    return packItems;
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const packModel = { addPack, getAll, getPackItems }
