@@ -44,7 +44,7 @@ var addItem = function (req, res) { return __awaiter(void 0, void 0, void 0, fun
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, items_1.itemModel.addItem(req.body.id, req.body.item)];
+                return [4 /*yield*/, items_1.itemModel.addItem(req.body.userId, req.body.item)];
             case 1:
                 response = _a.sent();
                 res.status(201);
@@ -86,7 +86,7 @@ var connectToPack = function (req, res) { return __awaiter(void 0, void 0, void 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, items_1.itemModel.connectToPack(req.body.itemId, req.body.packId)];
+                return [4 /*yield*/, items_1.itemModel.connectToPack(Number(req.params.itemId), Number(req.params.packId))];
             case 1:
                 response = _a.sent();
                 res.status(201);
@@ -107,7 +107,7 @@ var connectToUser = function (req, res) { return __awaiter(void 0, void 0, void 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, items_1.itemModel.connectToUser(req.body.itemId, req.body.userId)];
+                return [4 /*yield*/, items_1.itemModel.connectToUser(Number(req.params.itemId), Number(req.params.userId))];
             case 1:
                 response = _a.sent();
                 res.status(201);

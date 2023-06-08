@@ -13,11 +13,12 @@ router.get('/items', itemController.getAll);
 router.get('/packs', packController.getAll);
 router.get('/categories', catController.getAll);
 
-router.get('/user/:id/packs', userController.getPacks);
+router.get('/users/:id/packs', userController.getPacks);
 router.get('/users/:id/items', userController.getItems);
+router.get('/packs/:id/items', packController.getPackItems);
 
-router.put('items/user', itemController.connectToUser);
-router.put('item/pack', itemController.connectToPack)
+router.put('/items/:itemId/users/:userId', itemController.connectToUser);
+router.put('/items/:itemId/packs/:packId', itemController.connectToPack);
 
 
 export { router };

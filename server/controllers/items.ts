@@ -11,7 +11,7 @@ const addItem = async (req: Request, res: Response) => {
   //   res.send();
   // }
   try {
-    const response = await itemModel.addItem(req.body.id, req.body.item);
+    const response = await itemModel.addItem(req.body.userId, req.body.item);
     res.status(201);
     res.send(response);
   } catch (err) {
@@ -33,7 +33,7 @@ const getAll = async (req: Request, res: Response) => {
 
 const connectToPack =async (req: Request, res: Response) => {
   try {
-    const response = await itemModel.connectToPack(req.body.itemId, req.body.packId);
+    const response = await itemModel.connectToPack(Number(req.params.itemId), Number(req.params.packId));
     res.status(201);
     res.send(response);
   } catch (err) {
@@ -44,7 +44,7 @@ const connectToPack =async (req: Request, res: Response) => {
 
 const connectToUser = async (req: Request, res: Response) => {
   try {
-    const response = await itemModel.connectToUser(req.body.itemId, req.body.userId);
+    const response = await itemModel.connectToUser(Number(req.params.itemId), Number(req.params.userId));
     res.status(201);
     res.send(response);
   } catch (err) {
