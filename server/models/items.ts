@@ -20,17 +20,4 @@ const getAll = async () => {
   }
 }
 
-const getUserItems = async (userId: number) => {
-  try {
-    const userItems = await prisma.item.findMany({
-      where: {
-        id: userId
-      }
-    })
-    return userItems
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-export const itemModel = {addItem, getAll, getUserItems}
+export const itemModel = {addItem, getAll}
