@@ -5,6 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from './ui/button';
 import { Plus } from 'lucide-react';
 import { ItemForm } from './itemForm';
+import { PackForm } from './packForm';
 
 interface UserItemsProps {
   className: string;
@@ -32,7 +33,8 @@ export function UserItems() {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className='flex justify-start'>
-                    <ItemForm/>
+                    {/* <ItemForm/> */}
+                    <PackForm/>
                   </PopoverContent>
                 </Popover>
               </TableCaption>
