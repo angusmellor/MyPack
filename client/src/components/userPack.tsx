@@ -37,7 +37,7 @@ export function UserPack({className, pack}: UserPackProps) {
 
   const testPack = {
     id: 1,
-    trail: 'Te Aoroa',
+    trail: 'Te Araroa',
     tags: [
       'Summer'
     ],
@@ -59,14 +59,12 @@ export function UserPack({className, pack}: UserPackProps) {
         <div className=" text-sm">{testPack.trail}</div>
       </div>
       <div className="flex justify-start my-2">
-        <div className=" w-1/5">
-          <div className="mr-8 relative w-1/5">
-          {ratios.map((rat, i) => {
-              return <div id={`${i}`} className={cn('w-[114px] -z-10 absolute', colorPalette[i])}>
-                </div>
-            })}
-            <img src={packImgUrl} className=" h-40 min-w-min"></img>
-          </div>
+        <div className="mr-8 relative">
+        {ratios.map((rat, i) => {
+            return <div id={`${i}`} className={cn('w-[114px] -z-10 absolute', colorPalette[i])}>
+              </div>
+          })}
+          <img src={packImgUrl} className=" h-40 min-w-min"></img>
         </div>
         <div>
         <Tabs defaultValue="summary" className="w-[400px]">
@@ -75,7 +73,16 @@ export function UserPack({className, pack}: UserPackProps) {
             <TabsTrigger value="categories" className=" text-xs">Categories</TabsTrigger>
           </TabsList>
           <TabsContent value="summary">
-            <Card>
+            <Card className=" w-fit">
+              <CardContent className="mt-2 mb-2 space-y-2">
+                <div className="text-xs">Total Weight</div>
+                <div className="text-xs">Worn Weight</div>
+                <div className="text-xs">Base Weight</div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="categories">
+            <Card className=" w-fit">
               <CardContent className="mt-2 mb-2 space-y-2">
                 {categories.map((cat, i) => {
                   return (
@@ -88,7 +95,6 @@ export function UserPack({className, pack}: UserPackProps) {
               </CardContent>
             </Card>
           </TabsContent>
-          <TabsContent value="categories">Category Breakdown</TabsContent>
         </Tabs>
         </div>
       </div>
