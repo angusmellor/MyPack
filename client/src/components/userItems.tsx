@@ -1,20 +1,10 @@
-import { useState } from 'react'
-import { apiService } from '../apiService';
 import {Table, TableBody,TableCaption, TableCell, TableHead, TableHeader, TableRow} from "./ui/table"
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from './ui/button';
 import { Plus } from 'lucide-react';
 import { ItemForm } from './itemForm';
-import { PackForm } from './packForm';
-
-interface UserItemsProps {
-  className: string;
-  userId: number
-}
 
 export function UserItems() {
-
-  const [items, setItems] = useState();
 
   const categories = ['Big Four', 'Cook System', 'Clothing', 'Electronics', 'Miscellaneous']
 
@@ -33,8 +23,7 @@ export function UserItems() {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className='flex justify-start'>
-                    {/* <ItemForm/> */}
-                    <PackForm/>
+                    <ItemForm/>
                   </PopoverContent>
                 </Popover>
               </TableCaption>

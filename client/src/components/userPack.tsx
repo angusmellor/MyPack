@@ -6,35 +6,17 @@ import { Button } from "./ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { Badge } from "./ui/badge";
-import packImgUrl from "../assets/backpack.png"
 import { Card, CardContent } from "./ui/card";
 import { UserItems } from "./userItems";
+import { PackImage } from "./packImage";
 
 type UserPackProps = {
   className: string
   pack?: Pack
 }
-
-function showPackColors (ratios: number[] ) {
-  ratios.forEach((ratio, i) => {
-    const height = ratio * 160;
-    let sum = 0;
-    ratios.slice(0,i).forEach( num => {
-      sum += num;
-    })
-    const position = sum * 160;
-    document.getElementById(`${i}`)!.style.height = height + 'px';
-    document.getElementById(`${i}`)!.style.top = position + 'px';
-  })
-}
-
 export function UserPack({className, pack}: UserPackProps) {
 
   const [packInfo, setPackInfo] = useState(pack);
-
-  useEffect(() => {
-    showPackColors(ratios)
-  })
 
   const testPack = {
     id: 1,
@@ -49,7 +31,6 @@ export function UserPack({className, pack}: UserPackProps) {
 
   const colorPalette = [ 'bg-custBlue', 'bg-custBlue2', 'bg-custGreen', 'bg-custPink', 'bg-custPurp', 'bg-custBrown', 'bg-custOrng']
 
-
   const ratios = [0.2, 0.35, 0.1, 0.2, 0.15];
 
   return (
@@ -60,13 +41,7 @@ export function UserPack({className, pack}: UserPackProps) {
         <div className=" text-sm">{testPack.trail}</div>
       </div>
       <div className="flex justify-start my-2">
-        <div className="mr-8 relative">
-        {ratios.map((rat, i) => {
-            return <div id={`${i}`} className={cn('w-[114px] -z-10 absolute', colorPalette[i])}>
-              </div>
-          })}
-          <img src={packImgUrl} className=" h-40 min-w-min"></img>
-        </div>
+        <PackImage/>
         <div>
         <Tabs defaultValue="summary" className="w-[400px]">
           <TabsList>
