@@ -12,6 +12,13 @@ export default {
     },
     extend: {
       colors: {
+        custBlue: '#a6d3cc',
+        custBlue2: '#a6b4d3',
+        custGreen: '#a7d3a6',
+        custPink: '#eac4d5',
+        custPurp: '#bfa6d3',
+        custBrown: '#d0b8ac',
+        custOrng: '#ffc09f',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
