@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { Badge } from "./ui/badge";
 import packImgUrl from "../assets/backpack.png"
 import { Card, CardContent } from "./ui/card";
+import { UserItems } from "./userItems";
 
 type UserPackProps = {
   className: string
@@ -22,8 +23,8 @@ function showPackColors (ratios: number[] ) {
       sum += num;
     })
     const position = sum * 160;
-    document.getElementById(`${i}`).style.height = height + 'px';
-    document.getElementById(`${i}`).style.top = position + 'px';
+    document.getElementById(`${i}`)!.style.height = height + 'px';
+    document.getElementById(`${i}`)!.style.top = position + 'px';
   })
 }
 
@@ -113,7 +114,7 @@ export function UserPack({className, pack}: UserPackProps) {
         </Popover>
       </div>
       <div>
-        tables
+        <UserItems/>
       </div>
     </div>
   )
