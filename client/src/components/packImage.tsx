@@ -26,7 +26,7 @@ export function PackImage () {
   })
 
   return (
-    <div className="mr-8 relative">
+    <div className=" relative">
       {ratios.map((rat, i) => {
         return <div id={`${i}`} className={cn('w-[114px] -z-10 absolute', colorPalette[i])}></div>
       })}

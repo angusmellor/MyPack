@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from './ui/form';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
-import { Label } from '@radix-ui/react-label';
 
 const packFormSchema = z.object({
   name: z.string({required_error: "Name is required",
