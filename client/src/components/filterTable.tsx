@@ -3,7 +3,9 @@ import {
   flexRender,
   getCoreRowModel,
   useReactTable,
-  getPaginationRowModel
+  getPaginationRowModel,
+  SortingState,
+  getSortedRowModel
 } from "@tanstack/react-table"
  
 import {
@@ -15,6 +17,8 @@ import {
   TableRow,
 } from "./ui/table"
 
+import { useState } from "react"
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData,TValue>[]
   data: TData[]
@@ -24,12 +28,19 @@ export function FilterTable<TData, TValue>({
   columns,
   data
 }: DataTableProps<TData, TValue>) {
+
+  const [sorting, setSorting] = useState<SortingState>([])
   
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel()
+    getPaginationRowModel: getPaginationRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    state: {
+      sorting,
+    }
   })
 
   return (
