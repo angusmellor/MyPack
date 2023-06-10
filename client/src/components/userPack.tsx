@@ -1,5 +1,3 @@
-import { Pack } from "../lib/types";
-import { useEffect, useState } from "react";
 import { cn } from "../lib/utils";
 import { Compass, Plus } from 'lucide-react'
 import { Button } from "./ui/button";
@@ -11,12 +9,10 @@ import { UserItems } from "./userItems";
 import { PackImage } from "./packImage";
 
 type UserPackProps = {
-  className: string
-  pack?: Pack
+  className?: string
 }
-export function UserPack({className, pack}: UserPackProps) {
 
-  const [packInfo, setPackInfo] = useState(pack);
+export function UserPack({className}: UserPackProps) {
 
   const testPack = {
     id: 1,
@@ -30,8 +26,6 @@ export function UserPack({className, pack}: UserPackProps) {
   const categories = ['Big Four', 'Cook System', 'Clothing', 'Electronics', 'Miscellaneous']
 
   const colorPalette = [ 'bg-custBlue', 'bg-custBlue2', 'bg-custGreen', 'bg-custPink', 'bg-custPurp', 'bg-custBrown', 'bg-custOrng']
-
-  const ratios = [0.2, 0.35, 0.1, 0.2, 0.15];
 
   return (
     <div className={cn("px-1", className)}>
@@ -89,7 +83,7 @@ export function UserPack({className, pack}: UserPackProps) {
         </Popover>
       </div>
       <div>
-        <UserItems/>
+        <UserItems className='col-span-9'/>
       </div>
     </div>
   )

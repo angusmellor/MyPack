@@ -1,10 +1,8 @@
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from './ui/card';
 import { Compass, Plus } from 'lucide-react';
 import { Popover , PopoverTrigger, PopoverContent } from '@radix-ui/react-popover';
 import { Button } from './ui/button'
 import { PackForm } from './packForm';
 import { PackImage } from './packImage';
-import { ItemForm } from './itemForm';
 
 const testPacks = [
   {
@@ -23,7 +21,7 @@ const testPacks = [
   }
 ]
 type UserPackProps = {
-  className: string
+  className?: string
 }
 
 const categories = ['Big Four', 'Cook System', 'Clothing', 'Electronics', 'Miscellaneous']
@@ -36,12 +34,14 @@ export function UserAllPacks ({className}: UserPackProps) {
         {testPacks.map((pack) => {
           return (
             <div className='flex flex-col items-center max-w-max'>
-            <PackImage/>
-              <h4 className='font-bold'>{pack.name}</h4>
-              <div className="flex justify-start items-center">
-                <Compass className=" h-4"/>
-                <div className=" text-sm">{pack.trail}</div>
-              </div>
+              <a href={`/packs/${pack.id}`}>
+                <PackImage/>
+                <h4 className='font-bold'>{pack.name}</h4>
+                <div className="flex justify-start items-center">
+                  <Compass className=" h-4"/>
+                  <div className=" text-sm">{pack.trail}</div>
+                </div>
+              </a>
             </div>
           )})
         }

@@ -1,7 +1,5 @@
 import { Separator } from "./ui/seperator";
 
-
-
 export function NavBar () {
   return (
     <div className="mb-2">

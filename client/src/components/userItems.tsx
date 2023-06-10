@@ -4,12 +4,16 @@ import { Button } from './ui/button';
 import { Plus } from 'lucide-react';
 import { ItemForm } from './itemForm';
 
-export function UserItems() {
+type UserItemsProps = {
+  className?: string
+}
+
+export function UserItems({className}: UserItemsProps) {
 
   const categories = ['Big Four', 'Cook System', 'Clothing', 'Electronics', 'Miscellaneous']
 
   return (
-    <div>
+    <div className={className}>
       {categories.map((cat) => {
         return (
           <div>

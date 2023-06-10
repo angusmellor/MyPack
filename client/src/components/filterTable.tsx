@@ -19,15 +19,17 @@ import {
 
 import { useState } from "react"
 
-interface DataTableProps<TData, TValue> {
+interface FilterTableProps<TData, TValue> {
   columns: ColumnDef<TData,TValue>[]
-  data: TData[]
+  data: TData[],
+  className?: string
 }
 
 export function FilterTable<TData, TValue>({
   columns,
-  data
-}: DataTableProps<TData, TValue>) {
+  data, 
+  className
+}: FilterTableProps<TData, TValue>) {
 
   const [sorting, setSorting] = useState<SortingState>([])
   
@@ -44,7 +46,7 @@ export function FilterTable<TData, TValue>({
   })
 
   return (
-    <div>
+    <div className={className}>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
