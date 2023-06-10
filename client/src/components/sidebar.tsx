@@ -22,10 +22,12 @@ export function SideBar({className}: React.HTMLAttributes<HTMLDivElement>) {
         </a>
       </div>
       <div>
-        <Button size="sm" variant="default" className=" w-full justify-start text-xs min-w-max">
-          <Backpack className=" mr-2 min-w-min " />
-          Community Packs
-        </Button>
+        <a href = {'/test'}>
+          <Button size="sm" variant="default" className=" w-full justify-start text-xs min-w-max">
+            <Backpack className=" mr-2 min-w-min " />
+            Community Packs
+          </Button>
+        </a>
       </div>      
       <div>
         <a href = {'/gear/community'}>

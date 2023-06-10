@@ -49,3 +49,27 @@ export const columns: ColumnDef<Item>[] = [
     }
   }
 ]
+
+export const itemTestData: Item[] = [
+  {
+    id: 1,
+    name: 'Tent',
+    description: 'Zpacks Duplex',
+    weight: 0.5,
+    cost: 500
+  },
+  {
+    id: 2,
+    name: 'Backpack',
+    description: 'ULA Ohm 2.0',
+    weight: 0.5,
+    cost: 150
+  },
+  {
+    id: 3,
+    name: 'Shoes',
+    description: 'Hoka Speedgoat 5',
+    weight: 0.5,
+    cost: 200
+  }
+]

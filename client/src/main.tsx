@@ -7,32 +7,8 @@ import { UserPack } from './components/userPack.tsx';
 import { UserAllPacks } from './components/userAllPacks.tsx';
 import { UserItems } from './components/userItems.tsx';
 import { FilterTable } from './components/filterTable.tsx';
-import {Item, columns } from './components/Tables/itemsColumns.tsx';
-
-
-const itemTestData: Item[] = [
-  {
-    id: 1,
-    name: 'Tent',
-    description: 'Zpacks Duplex',
-    weight: 0.5,
-    cost: 500
-  },
-  {
-    id: 2,
-    name: 'Backpack',
-    description: 'ULA Ohm 2.0',
-    weight: 0.5,
-    cost: 150
-  },
-  {
-    id: 3,
-    name: 'Shoes',
-    description: 'Hoka Speedgoat 5',
-    weight: 0.5,
-    cost: 200
-  }
-]
+import { columns, itemTestData } from './components/Tables/itemsColumns.tsx';
+import { GearSearch } from './components/gearSearch.tsx';
 
 const router = createBrowserRouter([
   {
@@ -57,6 +33,10 @@ const router = createBrowserRouter([
         path: 'packs/:packId',
         element: <UserPack className=' col-span-9 '/>,
       },
+      {
+        path: 'test',
+        element: <GearSearch className=' col-span-9'/>
+      }
     ]
   },
 ])
