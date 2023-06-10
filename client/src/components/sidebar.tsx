@@ -4,36 +4,36 @@ import { Button } from "./ui/button";
 
 export function SideBar({className}: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn("px-5 w-max col-span-3 space-y-2 ", className)}>
+    <div className={cn("px-5 w-max col-span-3 space-y-2 group  ", className)}>
       <div>
         <a href= {'/packs'}>
           <Button size="sm" variant="secondary" className=" w-full justify-start text-xs min-w-max">
-            <Backpack className=" mr-2 min-w-min " />
-            My Packs
+            <Backpack className="min-w-min " />
+            <div className="group-hover:block hidden ml-2">My Packs</div>
           </Button>
         </a>
       </div>
       <div>
         <a href = {'/gear/user'}>
           <Button size="sm" variant="secondary" className="w-full justify-start text-xs min-w-max">
-            <LayoutList className=" mr-2 min-w-min" />
-            My Gear
+            <LayoutList className="min-w-min" />
+            <div className="group-hover:block hidden ml-2">My Gear</div>
           </Button>
         </a>
       </div>
       <div>
         <a href = {'/test'}>
           <Button size="sm" variant="default" className=" w-full justify-start text-xs min-w-max">
-            <Backpack className=" mr-2 min-w-min " />
-            Community Packs
+            <Backpack className="min-w-min " />
+            <div className="group-hover:block hidden ml-2">Community Packs</div>
           </Button>
         </a>
       </div>      
       <div>
         <a href = {'/gear/community'}>
           <Button size="sm" variant="default" className=" w-full justify-start text-xs min-w-max">
-            <LayoutList className=" mr-2 min-w-min" />
-            Community Gear
+            <LayoutList className="min-w-min" />
+            <div className="group-hover:block hidden ml-2">Community Gear</div>
           </Button>
         </a>
       </div>
