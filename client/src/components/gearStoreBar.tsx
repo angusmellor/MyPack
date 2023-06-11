@@ -4,7 +4,11 @@ import { Button } from "./ui/button"
 import { useState } from "react"
 import { cn } from "../lib/utils";
 
-export function GearStoreBar() {
+type GearStoreBarProps ={
+  className?: string
+}
+
+export function GearStoreBar({className}:GearStoreBarProps) {
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -13,7 +17,7 @@ export function GearStoreBar() {
   }
   
   return (
-    <div className="flex flex-col items-end ">
+    <div className={cn({className},"flex flex-col items-end ")}>
       <Button size="sm" variant="default" className=" justify-start text-xs min-w-min" onClick={handleClick}>
         <Warehouse className={cn(`${isOpen? 'hidden' : 'block'}`,'min-w-min')} />
         <X className={cn(`${isOpen? 'block' : 'hidden'}`,'min-w-min')}/>

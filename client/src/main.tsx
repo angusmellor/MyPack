@@ -17,25 +17,24 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'packs',
-        element: <UserAllPacks className=' col-span-9 ' />
-
+        element: <UserAllPacks />
       },
       {
         path: 'gear/user',
-        element: <UserItems className=' col-span-9 ' />
+        element: <UserItems />
 
       },
       {
         path: 'gear/community',
-        element: <FilterTable className=' col-span-9 ' columns={columns} data={itemTestData} />
+        element: <FilterTable columns={columns} data={itemTestData} />
       },
       {
         path: 'packs/:packId',
-        element: <UserPack className=' col-span-9 '/>,
+        element: <UserPack />,
       },
       {
         path: 'test',
-        element: <GearSearch className=' col-span-9'/>
+        element: <GearSearch />
       }
     ]
   },

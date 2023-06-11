@@ -8,7 +8,7 @@ export default function Root() {
       <NavBar />
       <div className="flex flex-row">
         <SideBar className="relative"/>
-        <div className=" w-full">
+        <div className="w-full">
           <Outlet />
         </div>
       </div>

@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from './ui/form';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
+import { cn } from '../lib/utils';
 
 const packFormSchema = z.object({
   name: z.string({required_error: "Name is required",
@@ -21,7 +22,11 @@ const packFormSchema = z.object({
   isFemale: z.optional(z.boolean())
 })
 
-export function PackForm () {
+type PackFormProps = {
+  className?: string
+}
+
+export function PackForm ({className}: PackFormProps) {
 
   const form = useForm<z.infer<typeof packFormSchema>>({
     resolver: zodResolver(packFormSchema),
@@ -41,55 +46,57 @@ export function PackForm () {
   }
 
   return (
-    <Form {...form}>
-        <form className='' onSubmit={form.handleSubmit(onSubmit)}>
-          <div className=''>
-            <FormField
-              control={form.control}
-              name= 'name'
-              render = {({ field }) => (
-                <FormItem className=''>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input className='' placeholder='e.g Scotland 2024' {...field} />
-                  </FormControl>
-                  <FormMessage></FormMessage>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name= 'trail'
-              render = {({ field }) => (
-                <FormItem className=''>
-                  <FormLabel>Trail</FormLabel>
-                  <FormControl>
-                    <Input className='w-max' placeholder='e.g West Highland Way' {...field} />
-                  </FormControl>
-                  <FormMessage></FormMessage>
-                </FormItem>
-              )}
-            />
-              {/* <FormField
+    <div className={cn(className)}>
+      <Form {...form}>
+          <form className='' onSubmit={form.handleSubmit(onSubmit)}>
+            <div className=''>
+              <FormField
                 control={form.control}
-                name= 'isWinter'
+                name= 'name'
                 render = {({ field }) => (
-                  <FormItem className='flex flex-col items-center'>
-                    <FormLabel>Weight</FormLabel>
+                  <FormItem className=''>
+                    <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <input
-                        type='checkbox'
-                        {...register()}
-                        />
+                      <Input className='' placeholder='e.g Scotland 2024' {...field} />
                     </FormControl>
                     <FormMessage></FormMessage>
                   </FormItem>
                 )}
-                /> */
-                }
-            <Button type='submit'>Add</Button>
-          </div>
-        </form>
-    </Form>
+              />
+              <FormField
+                control={form.control}
+                name= 'trail'
+                render = {({ field }) => (
+                  <FormItem className=''>
+                    <FormLabel>Trail</FormLabel>
+                    <FormControl>
+                      <Input className='w-max' placeholder='e.g West Highland Way' {...field} />
+                    </FormControl>
+                    <FormMessage></FormMessage>
+                  </FormItem>
+                )}
+              />
+                {/* <FormField
+                  control={form.control}
+                  name= 'isWinter'
+                  render = {({ field }) => (
+                    <FormItem className='flex flex-col items-center'>
+                      <FormLabel>Weight</FormLabel>
+                      <FormControl>
+                        <input
+                          type='checkbox'
+                          {...register()}
+                          />
+                      </FormControl>
+                      <FormMessage></FormMessage>
+                    </FormItem>
+                  )}
+                  /> */
+                  }
+              <Button type='submit' className='mt-2'>Add</Button>
+            </div>
+          </form>
+      </Form>
+    </div>
   )
 }
