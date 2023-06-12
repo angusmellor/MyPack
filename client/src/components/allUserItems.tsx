@@ -10,21 +10,28 @@ import { Cat, Item } from "../lib/types";
 
 type UserItemsProps = {
   className?: string
-  categories: Cat[]
 }
 
-export function AllUserItems({className, categories}: UserItemsProps) {
+export function AllUserItems({className}: UserItemsProps) {
 
   const [ userItems, setUserItems ] = useState<Item[]>([]);
-  const userId = useContext(userContext)
+  const [ categories, setCategories] = useState<Cat[]>([]);
+  const userId = useContext(userContext);
 
+  
   useEffect( () => {
+    const getCategories = async () => {
+      const cats = await apiService.getAll('categories')
+      setCategories(cats)
+    }
+  
     const getUserItems = async () => {
-      const userItemsList = await apiService.getUserItems(userId)//Change this when implementing login
+      const userItemsList = await apiService.getUserItems(userId)
       setUserItems(userItemsList[0].items);
     };
     getUserItems();
-  },[userId])
+    getCategories();
+  },[])
 
   return (
     <div className={className}>
