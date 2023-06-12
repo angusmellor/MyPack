@@ -4,13 +4,14 @@ import { Button } from "./ui/button"
 import { useState } from "react"
 import { cn } from "../lib/utils";
 import { Cat } from "../lib/types";
+import { Card, CardContent } from "./ui/card";
 
 type GearStoreBarProps ={
   className?: string
   categories: Cat[]
 }
 
-export function GearStoreBar({className, categories}:GearStoreBarProps) {
+export function GearStoreBar({className}:GearStoreBarProps) {
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -24,7 +25,11 @@ export function GearStoreBar({className, categories}:GearStoreBarProps) {
         <Warehouse className={cn(`${isOpen? 'hidden' : 'block'}`,'min-w-min')} />
         <X className={cn(`${isOpen? 'block' : 'hidden'}`,'min-w-min')}/>
       </Button>
-      <GearSearch categories={categories} className={cn(`${isOpen? 'block' : 'hidden'}`,"")}/>
+      <Card className="mt-2">
+        <CardContent className="p-2">
+          <GearSearch className={cn(`${isOpen? 'block' : 'hidden'}`,"")}/>
+        </CardContent>
+      </Card>
     </div>
   )
 }

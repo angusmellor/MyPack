@@ -18,7 +18,7 @@ export function GearSearch ({className}: GearSearchProps) {
           <TabsTrigger value="commGear" className=" text-xs ">Community Gear</TabsTrigger>
         </TabsList>
         <TabsContent value="userGear">
-          <AllUserItems/>
+          <AllUserItems showAdd={false}/>
         </TabsContent>
         <TabsContent value="commGear">
           <FilterTable columns={columns} data={itemTestData}/>

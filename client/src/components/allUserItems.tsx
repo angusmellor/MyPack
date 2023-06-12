@@ -7,12 +7,14 @@ import { useContext, useEffect, useState } from "react";
 import { apiService } from "../apiService";
 import { userContext } from "../userContext";
 import { Cat, Item } from "../lib/types";
+import { cn } from "../lib/utils";
 
 type UserItemsProps = {
   className?: string
+  showAdd: boolean
 }
 
-export function AllUserItems({className}: UserItemsProps) {
+export function AllUserItems({className, showAdd}: UserItemsProps) {
 
   const [ userItems, setUserItems ] = useState<Item[]>([]);
   const [ categories, setCategories] = useState<Cat[]>([]);
@@ -40,7 +42,7 @@ export function AllUserItems({className}: UserItemsProps) {
           <div>
             <h4>{cat.category}</h4>
             <Table>
-              <TableCaption>
+              <TableCaption className={cn(`${showAdd? 'block' : 'hidden'}`)}>
                 <Popover>
                   <PopoverTrigger>
                     <Button variant="outline" className="w-10 rounded-full p-0">
