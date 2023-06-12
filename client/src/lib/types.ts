@@ -1,12 +1,13 @@
 export interface Pack {
-  id: number
+  id?: number;
+  userId: number;
   name: string;
   trail: string;
-  isWinter: boolean;
-  isSummer: boolean;
-  isSolo: boolean;
-  isGroup: boolean;
-  isFemaile: boolean;
+  isWinter?: boolean;
+  isSummer?: boolean;
+  isSolo?: boolean;
+  isGroup?: boolean;
+  isFemale?: boolean;
 }
 
 export interface Item {

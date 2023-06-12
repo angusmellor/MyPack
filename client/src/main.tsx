@@ -16,11 +16,11 @@ const router = createBrowserRouter([
     element: <Home />,
     children: [
       {
-        path: 'packs',
+        path: 'packs/:userId',
         element: <UserAllPacks />
       },
       {
-        path: 'gear/user',
+        path: 'gear/:userId',
         element: <UserItems />
 
       },
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         element: <FilterTable columns={columns} data={itemTestData} />
       },
       {
-        path: 'packs/:packId',
+        path: 'pack/:packId',
         element: <UserPack />,
       },
       {

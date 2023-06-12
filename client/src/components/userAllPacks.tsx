@@ -1,64 +1,44 @@
 import { Compass, Plus, X } from 'lucide-react';
-import { Popover , PopoverTrigger, PopoverContent } from '@radix-ui/react-popover';
 import { Button } from './ui/button'
 import { PackForm } from './packForm';
 import { PackImage } from './packImage';
 import { Card, CardContent } from './ui/card';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { cn } from '../lib/utils';
+import { apiService } from '../apiService';
+import { Pack } from '../lib/types';
+import { useParams } from 'react-router-dom';
 
-const testPacks = [
-  {
-    id: 1,
-    user_id: 1,
-    trail: 'Te Araroa',
-    isSummer:true,
-    name: 'The Dream'
-  },
-  {
-    id: 2,
-    user_id:1,
-    name: 'PCT 2024',
-    trail: 'Pacific Crest Trail',
-    isWinter: true
-  },
-  // {
-  //   id: 3,
-  //   user_id:1,
-  //   name: 'PCT 2024',
-  //   trail: 'Pacific Crest Trail',
-  //   isWinter: true
-  // },
-  {
-    id: 4,
-    user_id:1,
-    name: 'PCT 2024',
-    trail: 'Pacific Crest Trail',
-    isWinter: true
-  }
-]
 type UserPacksProps = {
   className?: string
 }
 
-const categories = ['Big Four', 'Cook System', 'Clothing', 'Electronics', 'Miscellaneous']
-
 export function UserAllPacks ({className}: UserPacksProps) {
 
+  const { userId } = useParams();
   const [ showForm, setShowForm ] = useState(false);
-  
+  const [ userPacks, setUserPacks ] = useState<Pack[]>([]);
+
   const handleClick = () => {
     setShowForm (() => showForm? false : true)
   }
 
+  useEffect( () => {
+    const getUserPacks = async () => {
+      const userPackList = await apiService.getUserPacks(Number(userId)); //Change this when implementing login
+      setUserPacks(userPackList[0].packs);
+    };
+    getUserPacks();
+  },[userId])
+
   return (
     <div className={className}>
       <div  className='flex flex-row flex-wrap '>
-        {testPacks.map((pack) => {
+        {userPacks[0] ? userPacks.map((pack: Pack) => {
           return (
             <div className='w-1/3 flex justify-center mb-5'>
               <div className='w-fit flex flex-col justify-center max-w-max'>
-                <a href={`/packs/${pack.id}`}>
+                <a href={`/pack/${pack.id}`}>
                   <PackImage/>
                   <h4 className='font-bold'>{pack.name}</h4>
                   <div className="flex justify-start items-center">
@@ -68,7 +48,7 @@ export function UserAllPacks ({className}: UserPacksProps) {
                 </a>
               </div>
             </div>
-          )})
+          )}) : null
         }
         <div className='w-1/3 flex justify-center items-center h-40'>
           <div className={cn(`${showForm? 'hidden' : 'block'}`)}>
@@ -84,7 +64,13 @@ export function UserAllPacks ({className}: UserPacksProps) {
                     <X className='min-w-min'/>
                   </Button>
                 </div>
-                <PackForm />
+                <PackForm 
+                  setUserPacks={setUserPacks} 
+                  userPacks={userPacks} 
+                  userId={Number(userId)} 
+                  setShowForm={setShowForm}
+                  showForm={showForm}
+                />
               </CardContent>
             </Card>
           </div>

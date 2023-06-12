@@ -5,6 +5,8 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '
 import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { cn } from '../lib/utils';
+import { Pack } from '../lib/types';
+import { apiService } from '../apiService';
 
 const packFormSchema = z.object({
   name: z.string({required_error: "Name is required",
@@ -24,9 +26,21 @@ const packFormSchema = z.object({
 
 type PackFormProps = {
   className?: string
+  setUserPacks:  React.Dispatch<React.SetStateAction<Pack[]>>;
+  userPacks: Pack[], 
+  userId: number,
+  setShowForm: React.Dispatch<any>,
+  showForm: boolean
 }
 
-export function PackForm ({className}: PackFormProps) {
+export function PackForm ({
+  className, 
+  setUserPacks, 
+  userPacks, 
+  userId, 
+  setShowForm,
+  showForm
+}: PackFormProps) {
 
   const form = useForm<z.infer<typeof packFormSchema>>({
     resolver: zodResolver(packFormSchema),
@@ -36,12 +50,19 @@ export function PackForm ({className}: PackFormProps) {
       isWinter: false,
       isSummer: false,
       isGroup: false,
-      isFemale: false
+      isFemale: false,
+      isSolo: false
     }
   })
 
-  function onSubmit(item: z.infer<typeof packFormSchema>) {
-    console.log(item)
+  function onSubmit(pack: z.infer<typeof packFormSchema>) {
+    const setPack = async (pack: z.infer<typeof packFormSchema>) => {
+      const newPack = {...pack, userId: userId }
+      const addedPack = await apiService.addPack(newPack);
+      setUserPacks([...userPacks, addedPack])
+    }
+    setPack(pack);
+    setShowForm (() => showForm? false : true)
     form.reset();
   }
 
@@ -76,23 +97,6 @@ export function PackForm ({className}: PackFormProps) {
                   </FormItem>
                 )}
               />
-                {/* <FormField
-                  control={form.control}
-                  name= 'isWinter'
-                  render = {({ field }) => (
-                    <FormItem className='flex flex-col items-center'>
-                      <FormLabel>Weight</FormLabel>
-                      <FormControl>
-                        <input
-                          type='checkbox'
-                          {...register()}
-                          />
-                      </FormControl>
-                      <FormMessage></FormMessage>
-                    </FormItem>
-                  )}
-                  /> */
-                  }
               <Button type='submit' className='mt-2'>Add</Button>
             </div>
           </form>

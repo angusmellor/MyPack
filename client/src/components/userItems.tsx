@@ -1,14 +1,28 @@
 import {Table, TableBody,TableCaption, TableCell, TableHead, TableHeader, TableRow} from "./ui/table"
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from './ui/button';
-import { Plus } from 'lucide-react';
+import { ImageOff, Plus } from 'lucide-react';
 import { ItemForm } from './itemForm';
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { apiService } from "../apiService";
 
 type UserItemsProps = {
   className?: string
 }
 
 export function UserItems({className}: UserItemsProps) {
+
+  const { userId } = useParams();
+  const [ userItems, setUserItems ] = useState([]);
+
+  useEffect( () => {
+    const getUserItems = async () => {
+      const userPackList = await apiService.getUserItems(Number(userId)); //Change this when implementing login
+      // setUserPacks(userPackList[0].packs);
+    };
+    getUserItems();
+  },[userId])
 
   const categories = ['Big Four', 'Cook System', 'Clothing', 'Electronics', 'Miscellaneous']
 
