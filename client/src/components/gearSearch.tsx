@@ -17,7 +17,7 @@ export function GearSearch ({className, categories}: GearSearchProps) {
       <Tabs className=' flex flex-col items-center' defaultValue='userGear'>
         <TabsList className="w-min">
           <TabsTrigger value="userGear" className= " text-xs ">My Gear</TabsTrigger>
-          <TabsTrigger value="commGear" className=" text-xs ">Categories</TabsTrigger>
+          <TabsTrigger value="commGear" className=" text-xs ">Community Gear</TabsTrigger>
         </TabsList>
         <TabsContent value="userGear">
           <AllUserItems categories={categories} />

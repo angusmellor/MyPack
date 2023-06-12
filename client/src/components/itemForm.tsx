@@ -51,7 +51,7 @@ export function ItemForm ({packId, categoryId}: ItemFormProps) {
       const newItem = {...item, categoryId: categoryId }
       const addedItem = await apiService.addItem(newItem, userId);
       if (packId) {
-        const connection = await apiService.connectItemToPack(addedItem.id, userId)
+        const connection = await apiService.connectItemToPack(addedItem.id, packId)
         console.log(connection)
       }
     }
