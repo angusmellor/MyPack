@@ -8,9 +8,20 @@ import { cn } from '../lib/utils';
 import { apiService } from '../apiService';
 import { Pack } from '../lib/types';
 import { useParams } from 'react-router-dom';
+import { Item } from '../lib/types';
 
 type UserPacksProps = {
   className?: string
+}
+function calcRatios(items: Item[]) {
+  const ratios = [0,0,0,0,0];
+  let total = 0;
+  items.forEach( (item) => {
+    ratios[item.categoryId - 1] += item.weight;
+    total += item.weight
+  });
+  const newRatios = ratios.map((ratio) => {return ratio / total})
+  return total === 0 ? ratios : newRatios
 }
 
 export function UserAllPacks ({className}: UserPacksProps) {
@@ -18,28 +29,51 @@ export function UserAllPacks ({className}: UserPacksProps) {
   const { userId } = useParams();
   const [ showForm, setShowForm ] = useState(false);
   const [ userPacks, setUserPacks ] = useState<Pack[]>([]);
+  const [ packImgRatios, setPackImgRatios] = useState<number[][]>([[]])
 
   const handleClick = () => {
     setShowForm (() => showForm? false : true)
   }
 
   useEffect( () => {
-    const getUserPacks = async () => {
-      const userPackList = await apiService.getUserPacks(Number(userId)); //Change this when implementing login
-      setUserPacks(userPackList[0].packs);
-    };
-    getUserPacks();
+
+    const getRatioData = async () => {
+      try {
+        const userPackList = await apiService.getUserPacks(Number(userId));
+        const packList = userPackList[0].packs;
+        setUserPacks(packList);
+        
+        const allPacksItems = await Promise.all(
+          packList.map( async (pack: Pack) => {
+            const items = await apiService.getPackItems(pack.id)
+            return items[0].packItems
+          })
+        )
+
+        const packRatios = allPacksItems.map( (itemList) => {
+          return calcRatios(itemList)
+        })
+
+        setPackImgRatios(packRatios)
+
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getRatioData();
+
   },[userId])
 
   return (
     <div className={className}>
       <div  className='flex flex-row flex-wrap '>
-        {userPacks[0] ? userPacks.map((pack: Pack) => {
+        { (userPacks.length && packImgRatios[0].length) && userPacks.map((pack: Pack, i) => {
+          console.log(packImgRatios)
           return (
-            <div className='w-1/3 flex justify-center mb-5'>
+            <div key={pack.name} className='w-1/3 flex justify-center mb-5'>
               <div className='w-fit flex flex-col justify-center max-w-max'>
                 <a href={`/pack/${pack.id}`}>
-                  <PackImage/>
+                  <PackImage packId={pack.id} ratio={packImgRatios[i]}/>
                   <h4 className='font-bold'>{pack.name}</h4>
                   <div className="flex justify-start items-center">
                     <Compass className=" h-4"/>
@@ -48,7 +82,7 @@ export function UserAllPacks ({className}: UserPacksProps) {
                 </a>
               </div>
             </div>
-          )}) : null
+          )})
         }
         <div className='w-1/3 flex justify-center items-center h-40'>
           <div className={cn(`${showForm? 'hidden' : 'block'}`)}>

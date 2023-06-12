@@ -1,4 +1,4 @@
-import { Item, Pack } from "./lib/types";
+import { Item, NewPack, Pack } from "./lib/types";
 
 const serverURL = 'http://localhost:3001/';
 
@@ -76,7 +76,7 @@ const addItem = async (item: Item, userId: number) => {
   }
 }
 
-const addPack = async (pack: Pack) => {
+const addPack = async (pack: NewPack) => {
   try {
     const res = await fetch(serverURL + 'packs', {
       method: 'POST',

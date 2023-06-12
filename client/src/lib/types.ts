@@ -2,8 +2,7 @@ interface PackObject {
   [key: string]: any
 }
 
-export interface Pack extends PackObject {
-  id?: number;
+export interface NewPack extends PackObject {
   userId: number;
   name: string;
   trail: string;
@@ -12,6 +11,10 @@ export interface Pack extends PackObject {
   isSolo?: boolean;
   isGroup?: boolean;
   isFemale?: boolean;
+}
+
+export interface Pack extends NewPack {
+ id: number
 }
 
 export interface Item {

@@ -37,7 +37,7 @@ function calcRatios(items: Item[]) {
 export function UserPack({className}: UserPackProps) {
   
   const userId = useContext(userContext)
-  const defaultPack: Pack = {userId: userId, name: '', trail: ''}
+  const defaultPack: Pack = {id: 1 , userId: userId, name: '', trail: ''}
   const { packId } = useParams();
   const [ packItems, setPackItems ] =  useState<Item[]>([]);
   const [ categories , setCategories ] = useState<Cat[]>([]);
@@ -77,7 +77,7 @@ export function UserPack({className}: UserPackProps) {
             <h3 className=" text-sm">{packInfo.trail}</h3>
           </div>
           <div className="flex justify-start my-2">
-            <PackImage ratios={ratio} />
+            <PackImage packId={Number(packId)} ratio={ratio} />
             <div className="ml-5">
               <Tabs defaultValue="summary" className="">
                 <TabsList>
