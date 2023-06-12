@@ -1,14 +1,16 @@
 import { FilterTable } from "./filterTable"
 import { Tabs, TabsTrigger, TabsList, TabsContent } from "./ui/tabs"
 import { columns, itemTestData } from "./Tables/itemsColumns"
-import { UserItems } from "./userItems"
+import { AllUserItems } from "./allUserItems"
 import { cn } from "../lib/utils"
+import { Cat } from "../lib/types"
 
 type GearSearchProps = {
  className?: string
+ categories: Cat[]
 }
 
-export function GearSearch ({className}: GearSearchProps) {
+export function GearSearch ({className, categories}: GearSearchProps) {
 
   return (
     <div className={cn("", className)}>
@@ -18,7 +20,7 @@ export function GearSearch ({className}: GearSearchProps) {
           <TabsTrigger value="commGear" className=" text-xs ">Categories</TabsTrigger>
         </TabsList>
         <TabsContent value="userGear">
-          <UserItems />
+          <AllUserItems categories={categories} />
         </TabsContent>
         <TabsContent value="commGear">
           <FilterTable columns={columns} data={itemTestData}/>

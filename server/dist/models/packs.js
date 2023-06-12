@@ -101,5 +101,27 @@ var getPackItems = function (packId) { return __awaiter(void 0, void 0, void 0, 
         }
     });
 }); };
-exports.packModel = { addPack: addPack, getAll: getAll, getPackItems: getPackItems };
+var getPack = function (packId) { return __awaiter(void 0, void 0, void 0, function () {
+    var pack, e_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, db_1.prisma.pack.findUnique({
+                        where: {
+                            id: packId
+                        }
+                    })];
+            case 1:
+                pack = _a.sent();
+                return [2 /*return*/, pack];
+            case 2:
+                e_4 = _a.sent();
+                console.log(e_4);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.packModel = { addPack: addPack, getAll: getAll, getPackItems: getPackItems, getPack: getPack };
 //# sourceMappingURL=packs.js.map

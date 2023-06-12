@@ -27,11 +27,22 @@ const getUserPacks = async (userId: number) => {
 }
 
 const getPackItems =async (packId: number) => {
+  try {
+    const res = await fetch(serverURL + 'packs/' + packId + '/items');
+    const items = await res.json();
+    console.log('Sucess: ', items);
+    return items
+  } catch (e) {
+    console.log('Error: ', e)
+  }
+}
+
+const getPackById = async (packId: number) => {
     try {
-      const res = await fetch(serverURL + 'packs/' + packId + '/items');
-      const items = await res.json();
-      console.log('Sucess: ', items);
-      return items
+      const res = await fetch(serverURL + 'packs/' + packId);
+      const pack = await res.json();
+      console.log('Sucess: ', pack);
+      return pack
     } catch (e) {
       console.log('Error: ', e)
     }
@@ -114,6 +125,7 @@ export const apiService = {
   addPack,
   addItem,
   connectItemToPack,
-  connectItemToUser
+  connectItemToUser,
+  getPackById
 }
 

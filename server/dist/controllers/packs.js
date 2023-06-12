@@ -102,5 +102,27 @@ var getPackItems = function (req, res) { return __awaiter(void 0, void 0, void 0
         }
     });
 }); };
-exports.packController = { addPack: addPack, getAll: getAll, getPackItems: getPackItems };
+var getPack = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var packId, response, err_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                packId = Number(req.params.id);
+                return [4 /*yield*/, packs_1.packModel.getPack(packId)];
+            case 1:
+                response = _a.sent();
+                res.status(201);
+                res.send(response);
+                return [3 /*break*/, 3];
+            case 2:
+                err_4 = _a.sent();
+                console.log(err_4);
+                res.status(500);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.packController = { addPack: addPack, getAll: getAll, getPackItems: getPackItems, getPack: getPack };
 //# sourceMappingURL=packs.js.map

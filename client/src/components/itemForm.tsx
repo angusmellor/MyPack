@@ -4,6 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from './ui/form';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
+import { Item } from '../lib/types'
+import { apiService } from '../apiService';
+import { useContext } from 'react';
+import { userContext } from '../userContext';
 
 const itemFormSchema = z.object({
   name: z.string({required_error: "Name is required",
@@ -22,7 +26,15 @@ const itemFormSchema = z.object({
     .nonnegative()))
 })
 
-export function ItemForm () {
+type ItemFormProps = {
+  setter?: React.Dispatch<React.SetStateAction<Item[]>>
+  packId?: number
+  categoryId: number
+}
+
+export function ItemForm ({packId, categoryId}: ItemFormProps) {
+
+  const userId = useContext(userContext)
 
   const form = useForm<z.infer<typeof itemFormSchema>>({
     resolver: zodResolver(itemFormSchema),
@@ -35,7 +47,15 @@ export function ItemForm () {
   })
 
   function onSubmit(item: z.infer<typeof itemFormSchema>) {
-    console.log(item)
+    const addItem = async (item: z.infer<typeof itemFormSchema>) => {
+      const newItem = {...item, categoryId: categoryId }
+      const addedItem = await apiService.addItem(newItem, userId);
+      if (packId) {
+        const connection = await apiService.connectItemToPack(addedItem.id, userId)
+        console.log(connection)
+      }
+    }
+    addItem(item);    
     form.reset();
   }
 

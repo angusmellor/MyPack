@@ -1,37 +1,37 @@
 import {Table, TableBody,TableCaption, TableCell, TableHead, TableHeader, TableRow} from "./ui/table"
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from './ui/button';
-import { ImageOff, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { ItemForm } from './itemForm';
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { apiService } from "../apiService";
+import { userContext } from "../userContext";
+import { Cat, Item } from "../lib/types";
 
 type UserItemsProps = {
   className?: string
+  categories: Cat[]
 }
 
-export function UserItems({className}: UserItemsProps) {
+export function AllUserItems({className, categories}: UserItemsProps) {
 
-  const { userId } = useParams();
-  const [ userItems, setUserItems ] = useState([]);
+  const [ userItems, setUserItems ] = useState<Item[]>([]);
+  const userId = useContext(userContext)
 
   useEffect( () => {
     const getUserItems = async () => {
-      const userPackList = await apiService.getUserItems(Number(userId)); //Change this when implementing login
-      // setUserPacks(userPackList[0].packs);
+      const userItemsList = await apiService.getUserItems(userId)//Change this when implementing login
+      setUserItems(userItemsList[0].items);
     };
     getUserItems();
   },[userId])
-
-  const categories = ['Big Four', 'Cook System', 'Clothing', 'Electronics', 'Miscellaneous']
 
   return (
     <div className={className}>
       {categories.map((cat) => {
         return (
           <div>
-            <h4>{cat}</h4>
+            <h4>{cat.category}</h4>
             <Table>
               <TableCaption>
                 <Popover>
@@ -41,7 +41,7 @@ export function UserItems({className}: UserItemsProps) {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className='flex justify-start'>
-                    <ItemForm/>
+                    <ItemForm categoryId={cat.id}/>
                   </PopoverContent>
                 </Popover>
               </TableCaption>
@@ -54,12 +54,18 @@ export function UserItems({className}: UserItemsProps) {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium">Backpack</TableCell>
-                  <TableCell>ULA Ohm 2.0</TableCell>
-                  <TableCell>0.5</TableCell>
-                  <TableCell className="text-right">$150.00</TableCell>
-                </TableRow>
+                {userItems.map((item) => {
+                  return (
+                    item.categoryId === cat.id ?
+                      <TableRow>
+                        <TableCell className="font-medium">{item.name}</TableCell>
+                        <TableCell>{item.description}</TableCell>
+                        <TableCell>{item.weight}</TableCell>
+                        <TableCell className="text-right">{item.cost}</TableCell>
+                      </TableRow> :
+                      null
+                  )
+                  })}
               </TableBody>
             </Table>
           </div>

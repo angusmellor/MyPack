@@ -16,6 +16,7 @@ router.get('/categories', categories_1.catController.getAll);
 router.get('/users/:id/packs', users_1.userController.getPacks);
 router.get('/users/:id/items', users_1.userController.getItems);
 router.get('/packs/:id/items', packs_1.packController.getPackItems);
+router.get('/packs/:id', packs_1.packController.getPack);
 router.put('/items/:itemId/users/:userId', items_1.itemController.connectToUser);
 router.put('/items/:itemId/packs/:packId', items_1.itemController.connectToPack);
 //# sourceMappingURL=router.js.map

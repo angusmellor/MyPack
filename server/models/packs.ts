@@ -37,4 +37,17 @@ const getPackItems = async (packId: number) => {
   }
 }
 
-export const packModel = { addPack, getAll, getPackItems }
+const getPack = async (packId: number) => {
+  try {
+    const pack = await prisma.pack.findUnique({
+     where: {
+      id: packId
+     }
+    });
+    return pack;
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const packModel = { addPack, getAll, getPackItems, getPack }

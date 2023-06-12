@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './routes/Home.tsx'
 import { UserPack } from './components/userPack.tsx';
 import { UserAllPacks } from './components/userAllPacks.tsx';
-import { UserItems } from './components/userItems.tsx';
+import { AllUserItems } from './components/allUserItems.tsx';
 import { FilterTable } from './components/filterTable.tsx';
 import { columns, itemTestData } from './components/Tables/itemsColumns.tsx';
 import { GearSearch } from './components/gearSearch.tsx';
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'gear/:userId',
-        element: <UserItems />
+        element: <AllUserItems />
 
       },
       {
