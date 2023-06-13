@@ -66,12 +66,10 @@ export function UserPack({className}: UserPackProps) {
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source} = result;
-    const packImgElement = document.getElementById('AddItemOnDrag');
+
     
-    if (packImgElement) {
-      console.log('here')
-      packImgElement.style.visibility = 'invisible';
-    }
+    console.log(result)
+
 
     if (!destination) {
       return
@@ -84,15 +82,8 @@ export function UserPack({className}: UserPackProps) {
     }
   }
 
-  const onDragStart = () => {
-    const packImgElement = document.getElementById('AddItemOnDrag');
-    if (packImgElement) {
-      packImgElement.style.visibility = 'visible';
-    }
-  }
-
   return (
-    <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart} >
+    <DragDropContext onDragEnd={onDragEnd} >
       <div className={cn("px-1 flex flex-row justify-end", className)}>
         <div className="w-full h-full flex justify-center gap-10">
           <Card className="p-2 h-[85vh] overflow-auto">
@@ -104,22 +95,20 @@ export function UserPack({className}: UserPackProps) {
               <Compass className=" h-4"/>
               <h3 className=" text-sm">{packInfo.trail}</h3>
             </div>
-            <div className="flex justify-start my-2">
+            <div className="flex justify-start my-2 w-full">
               <Droppable droppableId="pack" >
-                {(provided) => (
-                  <div 
-                    id='PackImg' 
-                    className="flex justify-center relative"
+                {(provided, snapshot) =>  (
+                  <div id='PackImg'
                     ref={provided.innerRef}
-                      {...provided.droppableProps}
+                    {...provided.droppableProps}
+                    className={cn("h-96 w-56 bg-red-100",{'bg-slate-400' :  snapshot.isDraggingOver})}
                   >
-                    <PackImage
+                    {snapshot.isDraggingOver ? 'Dragging' : 'Not'}
+                    {/* <PackImage
                       packId={Number(packId)} 
                       ratio={ratio}
-                    />
-                    <div id='AddItemOnDrag' className="absolute bg-gray-400 w-full h-full flex items-center justify-center opacity-75 rounded-md invisible">
-                        <Plus className="h-4 w-4" />
-                    </div>
+                    /> */}
+                    {provided.placeholder}
                   </div>
                 )}
               </Droppable>

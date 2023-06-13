@@ -8,7 +8,6 @@ import { apiService } from "../apiService";
 import { userContext } from "../userContext";
 import { Cat, Item } from "../lib/types";
 import { cn } from "../lib/utils";
-import { Droppable, Draggable } from "react-beautiful-dnd";
 
 type UserItemsProps = {
   className?: string
@@ -63,37 +62,18 @@ export function AllUserItems({className, showAdd}: UserItemsProps) {
                   <TableHead className="text-right">Cost</TableHead>
                 </TableRow>
               </TableHeader>
-              <Droppable droppableId="list">
-                {(provided) => {
-                  return (
-                    <TableBody
-                      ref={provided.innerRef}
-                      {...provided.droppableProps}
-                    >
-                      {userItems.map((item,i) => {
-                        return item.categoryId === cat.id ? (
-                          <Draggable key ={item.name} draggableId={String(item.id)} index={i}>
-                            {(provided) => (
-                              <TableRow
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                ref={provided.innerRef}
-                                className="bg-white"
-                              >
-                                <TableCell className="font-medium">{item.name}</TableCell>
-                                <TableCell>{item.description}</TableCell>
-                                <TableCell>{item.weight}</TableCell>
-                                <TableCell className="text-right">{item.cost}</TableCell>
-                              </TableRow>
-                            )} 
-                          </Draggable>
-                        ) : null;
+                <TableBody>
+                  {userItems.map((item,i) => {
+                    return item.categoryId === cat.id ? (
+                      <TableRow key={item.id}>
+                        <TableCell className="font-medium">{item.name}</TableCell>
+                        <TableCell>{item.description}</TableCell>
+                        <TableCell>{item.weight}</TableCell>
+                        <TableCell className="text-right">{item.cost}</TableCell>
+                      </TableRow>
+                    ) : null;
                       })}
-                      {provided.placeholder}
-                    </TableBody>
-                  );
-                }}
-              </Droppable>
+                </TableBody>
             </Table>
           </div>
         )
