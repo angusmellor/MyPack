@@ -15,6 +15,7 @@ import { apiService } from "../apiService";
 import { userContext } from "../userContext";
 import { Separator } from "./ui/seperator";
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import { Table } from "./ui/table";
 
 type UserPackProps = {
   className?: string
@@ -96,23 +97,25 @@ export function UserPack({className}: UserPackProps) {
               <h3 className=" text-sm">{packInfo.trail}</h3>
             </div>
             <div className="flex justify-start my-2 w-full">
-              <Droppable droppableId="pack" >
-                {(provided, snapshot) =>  (
-                  <div id='PackImg'
+              <Droppable droppableId="pack2" >
+              {(provided, snapshot) => {
+                return (
+                  <Table
                     ref={provided.innerRef}
                     {...provided.droppableProps}
-                    className={cn("h-96 w-56 bg-red-100",{'bg-slate-400' :  snapshot.isDraggingOver})}
-                  >
-                    {snapshot.isDraggingOver ? 'Dragging' : 'Not'}
-                    {/* <PackImage
+                    className={cn('bg-blue-400 w-96 h-96', {'bg-slate-400' :  snapshot.isDraggingOver})}
+                    >
+                    <PackImage
                       packId={Number(packId)} 
                       ratio={ratio}
-                    /> */}
+                />
+                    
                     {provided.placeholder}
-                  </div>
-                )}
+                  </Table>
+                )}}
               </Droppable>
             </div>
+            
             <div className="flex w-full justify-around my-2">
               {tagList.map((tag) => {
                 return packInfo[`is${tag}`] ?

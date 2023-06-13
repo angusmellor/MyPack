@@ -86,6 +86,7 @@ export function FilterTable<TData, TValue>({
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           ref={provided.innerRef}
+                          className="bg-white"
                         >
                           {row.getVisibleCells().map((cell) => (
                             <TableCell key={cell.id}>
