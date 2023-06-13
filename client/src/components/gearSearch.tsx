@@ -1,14 +1,38 @@
 import { FilterTable } from "./filterTable"
 import { Tabs, TabsTrigger, TabsList, TabsContent } from "./ui/tabs"
-import { columns, itemTestData } from "./Tables/itemsColumns"
-import { AllUserItems } from "./allUserItems"
+import { columns } from "./Tables/itemsColumns"
 import { cn } from "../lib/utils"
+import { useEffect, useState, useContext } from "react"
+import { apiService } from "../apiService"
+import { userContext } from "../userContext"
 
 type GearSearchProps = {
  className?: string
 }
 
 export function GearSearch ({className}: GearSearchProps) {
+
+  const userId = useContext(userContext);
+
+  const [allItems, setAllItems] = useState([])
+  const [userItems, setUserItems] = useState([]);
+  
+  useEffect( () => {
+    const getAllItems =async () => {
+      try {
+        const itemsAll = await apiService.getAll('items');
+        console.log(itemsAll);
+        const itemsUser = await apiService.getUserItems(userId)
+        console.log(itemsUser)
+        setAllItems(itemsAll);
+        setUserItems(itemsUser[0].items)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getAllItems();
+  },[userId])
+
 
   return (
     <div className={cn("", className)}>
@@ -18,10 +42,10 @@ export function GearSearch ({className}: GearSearchProps) {
           <TabsTrigger value="commGear" className=" text-xs ">Community Gear</TabsTrigger>
         </TabsList>
         <TabsContent value="userGear">
-          <AllUserItems showAdd={false}/>
+        <FilterTable columns={columns} data={userItems}/>
         </TabsContent>
         <TabsContent value="commGear">
-          <FilterTable columns={columns} data={itemTestData}/>
+          <FilterTable columns={columns} data={allItems}/>
         </TabsContent>
       </Tabs>
     </div>

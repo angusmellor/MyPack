@@ -25,9 +25,9 @@ export function GearStoreBar({className}:GearStoreBarProps) {
         <Warehouse className={cn(`${isOpen? 'hidden' : 'block'}`,'min-w-min')} />
         <X className={cn(`${isOpen? 'block' : 'hidden'}`,'min-w-min')}/>
       </Button>
-      <Card className={cn(`${isOpen? 'block' : 'hidden'}`,"mx-2")}>
-        <CardContent className="p-2">
-          <GearSearch/>
+      <Card className={cn(`${isOpen? 'block' : 'hidden'}`,"mx-2 ")}>
+        <CardContent className="p-2 ">
+          <GearSearch />
         </CardContent>
       </Card>
     </div>

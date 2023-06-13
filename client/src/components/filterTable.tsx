@@ -5,7 +5,9 @@ import {
   useReactTable,
   getPaginationRowModel,
   SortingState,
-  getSortedRowModel
+  getSortedRowModel,
+  ColumnFiltersState,
+  getFilteredRowModel,
 } from "@tanstack/react-table"
  
 import {
@@ -17,7 +19,13 @@ import {
   TableRow,
 } from "./ui/table"
 
+import { Input } from './ui/input'
+
 import { useState } from "react"
+// import { DraggableRow } from "./ui/draggable"
+// import { createPortal } from "react-dom"
+// import { DragOverlay } from "@dnd-kit/core"
+
 
 interface FilterTableProps<TData, TValue> {
   columns: ColumnDef<TData,TValue>[]
@@ -28,10 +36,13 @@ interface FilterTableProps<TData, TValue> {
 export function FilterTable<TData, TValue>({
   columns,
   data, 
-  className
+  className,
 }: FilterTableProps<TData, TValue>) {
 
   const [sorting, setSorting] = useState<SortingState>([])
+  const [columnFilters, setColumnFilters] =  useState<ColumnFiltersState>(
+    []
+  )
   
   const table = useReactTable({
     data,
@@ -40,13 +51,26 @@ export function FilterTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
+      columnFilters
     }
   })
 
   return (
     <div className={className}>
+      <div className="flex items-center py-4">
+        <Input
+          placeholder="Filter item names..."
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          onChange={(event) =>
+            table.getColumn("name")?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+      </div>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -66,19 +90,21 @@ export function FilterTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-          <TableBody>
+          <TableBody className="overflow-hidden">
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row, i) => (
-                <TableRow
-                  data-state={row.getIsSelected() && "selected"}
-                  className="bg-white"
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
-                </TableRow>
+                <>
+                  <TableRow
+                    data-state={row.getIsSelected() && "selected"}
+                    key={i}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </>
               ))) : 
               (
                 <TableRow>

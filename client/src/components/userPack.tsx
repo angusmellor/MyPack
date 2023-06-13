@@ -1,4 +1,4 @@
-import {DndContext} from '@dnd-kit/core';
+import {DndContext, DragEndEvent} from '@dnd-kit/core';
 import { cn } from "../lib/utils";
 import { Compass, Plus } from 'lucide-react'
 import { Button } from "./ui/button";
@@ -15,10 +15,8 @@ import { Item, Cat, Pack } from "../lib/types";
 import { apiService } from "../apiService";
 import { userContext } from "../userContext";
 import { Separator } from "./ui/seperator";
-import { Table } from "./ui/table";
-import { Draggable } from './ui/draggable';
 import { Droppable } from './ui/droppable';
-import { Dnd } from './dnd';
+
 
 type UserPackProps = {
   className?: string
@@ -55,7 +53,7 @@ export function UserPack({className}: UserPackProps) {
       setRatio(calcRatios(packItems));
     };
     getPack(Number(packId));
-  })
+  },[packId])
 
   useEffect( () => {
     const getCategories = async () => {
@@ -68,11 +66,11 @@ export function UserPack({className}: UserPackProps) {
   const colorPalette = [ 'bg-custBlue', 'bg-custBlue2', 'bg-custGreen', 'bg-custPink', 'bg-custPurp', 'bg-custBrown', 'bg-custOrng']
   const tagList = ['Winter', 'Summer', 'Group' , 'Female', 'Solo']
 
-
+  const [activeId, setActiveId] = useState<string|null|number>(null);
+ 
   return (
     <>
-      <DndContext>
-        <Dnd/>
+      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         <div className={cn("px-1 flex flex-row justify-end", className)}>
           <div className="w-full h-full flex justify-center gap-10">
             <Card className="p-2 h-[85vh] overflow-auto">
@@ -84,12 +82,14 @@ export function UserPack({className}: UserPackProps) {
                 <Compass className=" h-4"/>
                 <h3 className=" text-sm">{packInfo.trail}</h3>
               </div>
-              <div className="flex justify-start my-2 w-full">
-                <PackImage
-                  packId={Number(packId)} 
-                  ratio={ratio}
-                />
-              </div>
+              <Droppable>
+                <div className="flex justify-start my-2 w-full">
+                  <PackImage
+                    packId={Number(packId)} 
+                    ratio={ratio}
+                  />
+                </div>
+              </Droppable>
               <div className="flex w-full justify-around my-2">
                 {tagList.map((tag) => {
                   return packInfo[`is${tag}`] ?
@@ -160,4 +160,14 @@ export function UserPack({className}: UserPackProps) {
       </DndContext>
     </>
   )
+
+  function handleDragStart(event: DragEndEvent) {
+    console.log(event)
+    setActiveId(event.active.id);
+  }
+  
+  function handleDragEnd() {
+    setActiveId(null);
+  }
 }
+

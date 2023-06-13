@@ -1,6 +1,9 @@
 import { Button } from "../ui/button";
 import { ArrowUpDown } from "lucide-react";
 import { ColumnDef } from '@tanstack/react-table'
+import { Plus } from 'lucide-react'
+import { useParams } from "react-router-dom";
+import { apiService } from "../../apiService";
 
 
 export interface Item {
@@ -12,6 +15,28 @@ export interface Item {
 }
 
 export const columns: ColumnDef<Item>[] = [
+  {
+    id: 'add',
+    cell: ({ row }) => {
+      const params = useParams();
+      const packId = Number(params.packId)
+      const itemId = row.original.id
+      const handleClick = async () => {
+        const item = await apiService.connectItemToPack(itemId, packId)
+        console.log(item)
+      };
+    
+      return (
+        <Button 
+          variant="outline" 
+          className="w-4 rounded-full p-0"
+          onClick={handleClick}
+        >
+          <Plus className="h-2 w-2" />
+        </Button>
+      );
+    }
+  },
   {
     accessorKey: 'name',
     header: 'Name'
@@ -47,29 +72,5 @@ export const columns: ColumnDef<Item>[] = [
         </Button>
       )
     }
-  }
-]
-
-export const itemTestData: Item[] = [
-  {
-    id: 1,
-    name: 'Tent',
-    description: 'Zpacks Duplex',
-    weight: 0.5,
-    cost: 500
-  },
-  {
-    id: 2,
-    name: 'Backpack',
-    description: 'ULA Ohm 2.0',
-    weight: 0.5,
-    cost: 150
-  },
-  {
-    id: 3,
-    name: 'Shoes',
-    description: 'Hoka Speedgoat 5',
-    weight: 0.5,
-    cost: 200
   }
 ]

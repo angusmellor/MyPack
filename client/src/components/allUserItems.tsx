@@ -7,14 +7,12 @@ import { useContext, useEffect, useState } from "react";
 import { apiService } from "../apiService";
 import { userContext } from "../userContext";
 import { Cat, Item } from "../lib/types";
-import { cn } from "../lib/utils";
 
 type UserItemsProps = {
   className?: string
-  showAdd: boolean
 }
 
-export function AllUserItems({className, showAdd}: UserItemsProps) {
+export function AllUserItems({className}: UserItemsProps) {
 
   const [ userItems, setUserItems ] = useState<Item[]>([]);
   const [ categories, setCategories] = useState<Cat[]>([]);
@@ -33,7 +31,7 @@ export function AllUserItems({className, showAdd}: UserItemsProps) {
     };
     getUserItems();
     getCategories();
-  },[])
+  },[userId])
 
   return (
     <div className={className}>
@@ -42,7 +40,7 @@ export function AllUserItems({className, showAdd}: UserItemsProps) {
           <div key={cat.category}>
             <h4>{cat.category}</h4>
             <Table>
-              <TableCaption className={cn(`${showAdd? 'block' : 'hidden'}`)}>
+              <TableCaption>
                 <Popover>
                   <PopoverTrigger>
                     <Button variant="outline" className="w-10 rounded-full p-0">
@@ -63,7 +61,7 @@ export function AllUserItems({className, showAdd}: UserItemsProps) {
                 </TableRow>
               </TableHeader>
                 <TableBody>
-                  {userItems.map((item,i) => {
+                  {userItems.map((item) => {
                     return item.categoryId === cat.id ? (
                       <TableRow key={item.id}>
                         <TableCell className="font-medium">{item.name}</TableCell>

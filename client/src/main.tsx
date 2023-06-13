@@ -5,10 +5,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './routes/Home.tsx'
 import { UserPack } from './components/userPack.tsx';
 import { UserAllPacks } from './components/userAllPacks.tsx';
-import { AllUserItems } from './components/allUserItems.tsx';
-import { FilterTable } from './components/filterTable.tsx';
-import { columns, itemTestData } from './components/Tables/itemsColumns.tsx';
 import { GearSearch } from './components/gearSearch.tsx';
+import { AllUserItems } from './components/allUserItems.tsx';
+import { CommunityGear } from './components/communityGear.tsx';
 
 const router = createBrowserRouter([
   {
@@ -26,7 +25,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'gear/community',
-        element: <FilterTable columns={columns} data={itemTestData} />
+        element: <CommunityGear/>
       },
       {
         path: 'pack/:packId',
@@ -43,7 +42,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    {/* <App /> */}
     <RouterProvider router={router} />
   </React.StrictMode>,
 )
