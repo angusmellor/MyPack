@@ -5,23 +5,28 @@ import { Plus } from 'lucide-react';
 import { ItemForm } from './itemForm';
 import { useParams } from "react-router-dom";
 import { Item, Cat } from "../lib/types";
+import { cn } from "../lib/utils";
 
 type UserItemsProps = {
   className?: string
   items: Item[]
-  categories: Cat[]
+  categories: Cat[],
+  colorPalette: string[]
 }
 
-export function PackItems({className, items, categories}: UserItemsProps) {
+export function PackItems({className, items, categories, colorPalette}: UserItemsProps) {
 
   const { packId } = useParams();
   
   return (
     <div className={className}>
-      {categories.map((cat) => {
+      {categories.map((cat, i) => {
         return (
-          <div>
-            <h4>{cat.category}</h4>
+          <div key={cat.category}>
+            <div className="flex h-fit justify-start items-center"> 
+              <div className={cn('rounded-full h-4 w-4', colorPalette[i], 'mx-2')} key={colorPalette[i]}></div>
+              <h3 className="font-semibold" key={cat.id}>{cat.category}</h3>
+            </div>
             <Table>
               <TableCaption>
                 <Popover>
@@ -50,7 +55,7 @@ export function PackItems({className, items, categories}: UserItemsProps) {
                 {items.map((item) => {
                   return (
                     item.categoryId === cat.id ?
-                      <TableRow>
+                      <TableRow key={item.id}>
                         <TableCell className="font-medium">{item.name}</TableCell>
                         <TableCell>{item.description}</TableCell>
                         <TableCell>{item.weight}</TableCell>

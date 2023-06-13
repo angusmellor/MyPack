@@ -20,14 +20,14 @@ export function GearStoreBar({className}:GearStoreBarProps) {
   }
   
   return (
-    <div className={cn({className},"flex flex-col items-end ")}>
-      <Button size="sm" variant="default" className=" justify-start text-xs min-w-min" onClick={handleClick}>
+    <div className={cn({className},"flex flex-col items-end position relative ")}>
+      <Button size="sm" variant="default" className=" justify-start text-xs min-w-min absolute mx-4 my-2" onClick={handleClick}>
         <Warehouse className={cn(`${isOpen? 'hidden' : 'block'}`,'min-w-min')} />
         <X className={cn(`${isOpen? 'block' : 'hidden'}`,'min-w-min')}/>
       </Button>
-      <Card className="mt-2">
+      <Card className={cn(`${isOpen? 'block' : 'hidden'}`,"mx-2")}>
         <CardContent className="p-2">
-          <GearSearch className={cn(`${isOpen? 'block' : 'hidden'}`,"")}/>
+          <GearSearch/>
         </CardContent>
       </Card>
     </div>
