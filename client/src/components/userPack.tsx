@@ -27,7 +27,8 @@ function calcRatios(items: Item[]) {
     total += item.weight
   });
   const newRatios = ratios.map((ratio) => {return ratio / total})
-  return newRatios
+  console.log(ratios)
+  return [newRatios, ratios]
 }
 
 export function UserPack({className}: UserPackProps) {
@@ -39,6 +40,11 @@ export function UserPack({className}: UserPackProps) {
   const [ categories , setCategories ] = useState<Cat[]>([]);
   const [ packInfo, setPackInfo ] = useState<Pack>(defaultPack);
   const [ ratio, setRatio ]= useState([0,0,0,0,0]);
+  const [catWeights, setCatWeights] = useState([0,0,0,0,0])
+  const [missingPackTags, setMissingPackTags] = useState<string[]>([])
+
+  const tagList = ['Winter', 'Summer', 'Group' , 'Female', 'Solo']
+
  
   useEffect( () => {
     const getPack = async (packId: number) => {
@@ -47,7 +53,9 @@ export function UserPack({className}: UserPackProps) {
       const packItems = items[0].packItems;
       setPackInfo(pack);
       setPackItems(packItems);
-      setRatio(calcRatios(packItems));
+      const [catRatios, catWeights] = calcRatios(packItems)
+      setRatio(catRatios);
+      setCatWeights(catWeights)
     };
     getPack(Number(packId));
   },[packId])
@@ -60,8 +68,18 @@ export function UserPack({className}: UserPackProps) {
     getCategories();
   },[])
 
+  useEffect( () => {
+    const newPackTags: string[] = [];
+    tagList.map((tag) => {
+      if (!packInfo[`is${tag}`]) {
+        newPackTags.push(tag)
+      }
+    })
+    console.log('here')
+    setMissingPackTags(newPackTags)
+  }, [packInfo])
+
   const colorPalette = [ 'bg-custBlue', 'bg-custBlue2', 'bg-custGreen', 'bg-custPink', 'bg-custPurp', 'bg-custBrown', 'bg-custOrng']
-  const tagList = ['Winter', 'Summer', 'Group' , 'Female', 'Solo']
  
   return (
     <>
@@ -97,11 +115,21 @@ export function UserPack({className}: UserPackProps) {
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent>
-                {tagList.map((tag) => {
-                  return packInfo[`is${tag}`] ?
-                  null :
-                  <Badge key={tag} variant="secondary" className=" mx-2 text ">{tag}</Badge>
-                })}
+                  {missingPackTags.map((tag) => {
+                    return (
+                      <Badge 
+                        key={tag} 
+                        variant="secondary" 
+                        className=" mx-2 text "
+                        onClick={() => {
+                          console.log({ ...packInfo, [`is${tag}`]: true,})
+                          setPackInfo({[`is${tag}`]: true, ...packInfo})
+                        }}
+                      >
+                        {tag}
+                      </Badge>
+                    )
+                  })}
                 </PopoverContent>
               </Popover>
             </div>
@@ -115,16 +143,16 @@ export function UserPack({className}: UserPackProps) {
                   <CardContent className="mt-2 mb-2 space-y-2">
                     <div className="flex justify-between">
                       <h4 className="text-xs font-semibold">Total Weight</h4>
-                      <h4 className="text-xs">0.5 kg</h4>
+                      <h4 className="text-xs">{catWeights.reduce((p, a) =>(a + p))} kg</h4>
                     </div>
                     <div className="flex justify-between">
                       <h4 className="text-xs font-semibold">Worn Weight</h4>
-                      <h4 className="text-xs">0.5 kg</h4>
+                      <h4 className="text-xs">{catWeights[3]} kg</h4>
                     </div>
                     <Separator/>
                     <div className="flex justify-between">
                       <h4 className="text-xs font-semibold">Base Weight</h4>
-                      <h4 className="text-xs">0.5 kg</h4>
+                      <h4 className="text-xs">{catWeights.reduce((p, a) =>(a + p)) - catWeights[3]} kg</h4>
                     </div>
                   </CardContent>
                 </Card>
@@ -139,7 +167,7 @@ export function UserPack({className}: UserPackProps) {
                             <div className={cn('rounded-full w-4', colorPalette[i], 'mx-2')} key={colorPalette[i]}></div>
                             <div className="text-xs font-semibold" key={cat.id}>{cat.category}</div>
                           </div>
-                          <h4 className="text-xs">0.5 kg</h4>
+                          <h4 className="text-xs">{catWeights[i]} kg</h4>
                         </div>
                       )
                     })}
