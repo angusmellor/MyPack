@@ -23,7 +23,7 @@ function calcRatios(items: Item[]) {
   const ratios = [0,0,0,0,0];
   let total = 0;
   items.forEach( (item) => {
-    ratios[item.categoryId - 1] += item.weight;
+    ratios[item.categoryId - 1] += Math.round(item.weight * 1000)/1000;
     total += item.weight
   });
   const newRatios = ratios.map((ratio) => {return ratio / total})
@@ -53,9 +53,6 @@ export function UserPack({className}: UserPackProps) {
       const packItems = items[0].packItems;
       setPackInfo(pack);
       setPackItems(packItems);
-      const [catRatios, catWeights] = calcRatios(packItems)
-      setRatio(catRatios);
-      setCatWeights(catWeights)
     };
     getPack(Number(packId));
   },[packId])
@@ -78,6 +75,12 @@ export function UserPack({className}: UserPackProps) {
     console.log('here')
     setMissingPackTags(newPackTags)
   }, [packInfo])
+
+  useEffect( () => {
+    const [catRatios, catWeights] = calcRatios(packItems)
+    setRatio(catRatios);
+    setCatWeights(catWeights)
+  },[packItems])
 
   const colorPalette = [ 'bg-custBlue', 'bg-custBlue2', 'bg-custGreen', 'bg-custPink', 'bg-custPurp', 'bg-custBrown', 'bg-custOrng']
  
@@ -152,7 +155,7 @@ export function UserPack({className}: UserPackProps) {
                     <Separator/>
                     <div className="flex justify-between">
                       <h4 className="text-xs font-semibold">Base Weight</h4>
-                      <h4 className="text-xs">{catWeights.reduce((p, a) =>(a + p)) - catWeights[3]} kg</h4>
+                      <h4 className="text-xs">{Math.round((catWeights.reduce((p, a) =>(a + p)) - catWeights[3])*1000)/1000} kg</h4>
                     </div>
                   </CardContent>
                 </Card>
@@ -167,7 +170,7 @@ export function UserPack({className}: UserPackProps) {
                             <div className={cn('rounded-full w-4', colorPalette[i], 'mx-2')} key={colorPalette[i]}></div>
                             <div className="text-xs font-semibold" key={cat.id}>{cat.category}</div>
                           </div>
-                          <h4 className="text-xs">{catWeights[i]} kg</h4>
+                          <h4 className="text-xs">{Math.round(catWeights[i]*1000)/1000} kg</h4>
                         </div>
                       )
                     })}
@@ -177,7 +180,7 @@ export function UserPack({className}: UserPackProps) {
             </Tabs>
           </Card>
         </div>
-        <GearStoreBar categories={categories} />
+        <GearStoreBar setPackItems={setPackItems} categories={categories} />
       </div>
     </>
   )

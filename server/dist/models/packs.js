@@ -67,6 +67,7 @@ var addPack = function (pack) { return __awaiter(void 0, void 0, void 0, functio
                     })];
             case 1:
                 addedPack = _a.sent();
+                console.log(addedPack);
                 return [2 /*return*/, addedPack];
             case 2:
                 e_2 = _a.sent();

@@ -1,4 +1,4 @@
-import { FilterTable } from "./filterTable"
+import { FilterTable1 } from "./filterTable1"
 import { columns } from "./Tables/itemsColumns"
 import { cn } from "../lib/utils"
 import { useEffect, useState } from "react"
@@ -29,7 +29,7 @@ export function CommunityGear ({className}: GearSearchProps) {
 
   return (
     <div className={cn("", className)}>
-      <FilterTable columns={columns} data={allItems}/>
+      <FilterTable1 data={allItems}/>
     </div>
   )
 }

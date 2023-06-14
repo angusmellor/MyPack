@@ -8,6 +8,7 @@ import { UserAllPacks } from './components/userAllPacks.tsx';
 import { GearSearch } from './components/gearSearch.tsx';
 import { AllUserItems } from './components/allUserItems.tsx';
 import { CommunityGear } from './components/communityGear.tsx';
+import { CommunityPacks } from './components/communityPacks.tsx';
 
 const router = createBrowserRouter([
   {
@@ -32,8 +33,8 @@ const router = createBrowserRouter([
         element: <UserPack />,
       },
       {
-        path: 'test',
-        element: <GearSearch />
+        path: 'packs/community',
+        element: <CommunityPacks/>
       }
     ]
   },

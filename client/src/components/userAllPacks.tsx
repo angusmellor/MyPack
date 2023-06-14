@@ -91,7 +91,7 @@ export function UserAllPacks ({className}: UserPacksProps) {
             </Button>
           </div>
           <div className={cn(`${showForm? 'block' : 'hidden'}`)}>
-            <Card className=' p-2'>
+            <Card className=' p-2 bg-white '>
               <CardContent className='flex-col first:ml-max'>
                 <div className='flex justify-end'>
                   <Button className=' max-w-min' size='sm' variant='secondary' onClick={handleClick}>

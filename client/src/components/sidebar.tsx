@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 
 export function SideBar({className}: React.HTMLAttributes<HTMLDivElement>) {
 
-  const testUserId = 1;
+  const testUserId = 2;
 
   return (
     <div className={cn("px-5 w-max col-span-3 space-y-2 group  ", className)}>
@@ -25,7 +25,7 @@ export function SideBar({className}: React.HTMLAttributes<HTMLDivElement>) {
         </a>
       </div>
       <div>
-        <a href = {'/test'}>
+        <a href = {'/packs/community'}>
           <Button size="sm" variant="default" className=" w-full justify-start text-xs min-w-max">
             <Backpack className="min-w-min " />
             <div className="group-hover:block hidden ml-2">Community Packs</div>

@@ -41,7 +41,6 @@ export function PackForm ({
   setShowForm,
   showForm
 }: PackFormProps) {
-
   const form = useForm<z.infer<typeof packFormSchema>>({
     resolver: zodResolver(packFormSchema),
     defaultValues: {

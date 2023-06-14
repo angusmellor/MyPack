@@ -5,19 +5,23 @@ import { useState } from "react"
 import { cn } from "../lib/utils";
 import { Cat } from "../lib/types";
 import { Card, CardContent } from "./ui/card";
+import { Item } from "../lib/types";
 
 type GearStoreBarProps ={
   className?: string
   categories: Cat[]
+  setPackItems: React.Dispatch<React.SetStateAction<Item[]>>
 }
 
-export function GearStoreBar({className}:GearStoreBarProps) {
+export function GearStoreBar({className, setPackItems}:GearStoreBarProps) {
 
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
     setIsOpen(() => isOpen ? false : true);
   }
+
+  console.log(setPackItems)
   
   return (
     <div className={cn({className},"flex flex-col items-end position relative ")}>
@@ -27,7 +31,7 @@ export function GearStoreBar({className}:GearStoreBarProps) {
       </Button>
       <Card className={cn(`${isOpen? 'block' : 'hidden'}`,"mx-2 ")}>
         <CardContent className="p-2 h-[85vh] overflow-auto ">
-          <GearSearch />
+          <GearSearch setPackItems={setPackItems} />
         </CardContent>
       </Card>
     </div>

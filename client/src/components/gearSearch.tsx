@@ -5,12 +5,15 @@ import { useEffect, useState, useContext } from "react"
 import { apiService } from "../apiService"
 import { userContext } from "../userContext"
 import { columns } from "./Tables/itemsColumns"
+import { FilterTable1 } from "./filterTable1"
+import { Item } from "../lib/types"
 
 type GearSearchProps = {
  className?: string
+ setPackItems: React.Dispatch<React.SetStateAction<Item[]>>
 }
 
-export function GearSearch ({className}: GearSearchProps) {
+export function GearSearch ({className, setPackItems}: GearSearchProps) {
 
   const userId = useContext(userContext);
 
@@ -42,10 +45,12 @@ export function GearSearch ({className}: GearSearchProps) {
           <TabsTrigger value="commGear" className=" text-xs ">Community Gear</TabsTrigger>
         </TabsList>
         <TabsContent value="userGear">
-          <FilterTable columns={columns} data={userItems}/>
+          {/* <FilterTable columns={columns} data={userItems}/> */}
+          <FilterTable1 setPackItems={setPackItems} data={userItems}/>
         </TabsContent>
         <TabsContent value="commGear">
-          <FilterTable columns={columns} data={allItems}/>
+          {/* <FilterTable columns={columns} data={allItems}/> */}
+          <FilterTable1 setPackItems={setPackItems} data={allItems}/>
         </TabsContent>
       </Tabs>
     </div>

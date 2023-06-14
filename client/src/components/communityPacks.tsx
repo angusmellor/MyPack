@@ -1,8 +1,13 @@
-import { Compass} from 'lucide-react';
+import { Compass, Plus, X } from 'lucide-react';
+import { Button } from './ui/button'
+import { PackForm } from './packForm';
 import { PackImage } from './packImage';
+import { Card, CardContent } from './ui/card';
 import { useState, useEffect } from 'react';
+import { cn } from '../lib/utils';
 import { apiService } from '../apiService';
 import { Pack } from '../lib/types';
+import { useParams } from 'react-router-dom';
 import { Item } from '../lib/types';
 
 type UserPacksProps = {
@@ -19,21 +24,23 @@ function calcRatios(items: Item[]) {
   return total === 0 ? ratios : newRatios
 }
 
-export function communityPacks ({className}: UserPacksProps) {
+export function CommunityPacks ({className}: UserPacksProps) {
 
-  const [ allPacks, setAllPacks ] = useState<Pack[]>([]);
+  const { userId } = useParams();
+  const [ userPacks, setUserPacks ] = useState<Pack[]>([]);
   const [ packImgRatios, setPackImgRatios] = useState<number[][]>([[]])
-
 
   useEffect( () => {
 
     const getRatioData = async () => {
       try {
-        const commPackList = await apiService.getAll('packs');
-        setAllPacks(commPackList);
+        const userPackList = await apiService.getAll('packs');
+        const packList = userPackList
+        console.log('packlist :', packList)
+        setUserPacks(userPackList);
         
         const allPacksItems = await Promise.all(
-          allPacks.map( async (pack: Pack) => {
+          packList.map( async (pack: Pack) => {
             const items = await apiService.getPackItems(pack.id)
             return items[0].packItems
           })
@@ -48,32 +55,34 @@ export function communityPacks ({className}: UserPacksProps) {
       } catch (e) {
         console.log(e)
       }
-    getRatioData();
     }
+    getRatioData();
 
-  },[])
+  },[userId])
 
   return (
     <div className={className}>
       <div  className='flex flex-row flex-wrap '>
-        { (allPacks.length && packImgRatios[0].length) && allPacks.map((pack: Pack, i) => {
-          console.log(packImgRatios)
-          return (
-            <div key={pack.name} className='w-1/3 flex justify-center mb-5'>
-              <div className='w-fit flex flex-col justify-center max-w-max'>
-                <a href={`/pack/${pack.id}`}>
-                  <PackImage packId={pack.id} ratio={packImgRatios[i]}/>
-                  <h4 className='font-bold'>{pack.name}</h4>
-                  <div className="flex justify-start items-center">
-                    <Compass className=" h-4"/>
-                    <div className=" text-sm">{pack.trail}</div>
-                  </div>
-                </a>
+        { (userPacks.length && packImgRatios[0].length) && userPacks.map((pack: Pack, i) => {
+          if (pack.userId !== Number(userId)) {
+            return (
+              <div key={pack.name} className='w-1/3 flex justify-center mb-5'>
+                <div className='w-fit flex flex-col justify-center max-w-max'>
+                  <a href={`/pack/${pack.id}`}>
+                    <PackImage packId={pack.id} ratio={packImgRatios[i]}/>
+                    <h4 className='font-bold'>{pack.name}</h4>
+                    <div className="flex justify-start items-center">
+                      <Compass className=" h-4"/>
+                      <div className=" text-sm">{pack.trail}</div>
+                    </div>
+                  </a>
+                </div>
               </div>
-            </div>
-          )})
+          )
         }
-        </div>
+      })
+        }
       </div>
+    </div>
   )
 }

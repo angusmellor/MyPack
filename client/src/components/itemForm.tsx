@@ -35,6 +35,8 @@ type ItemFormProps = {
 
 export function ItemForm ({packId, categoryId, setPackItems}: ItemFormProps) {
 
+  console.log(setPackItems)
+
   const userId = useContext(userContext)
 
   const form = useForm<z.infer<typeof itemFormSchema>>({

@@ -15,6 +15,7 @@ const addPack = async (pack: Pack) => {
     const addedPack = await prisma.pack.create({
       data: pack
     })
+    console.log(addedPack)
     return addedPack;
   } catch (e) {
     console.log(e);
