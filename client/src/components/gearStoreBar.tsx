@@ -26,7 +26,7 @@ export function GearStoreBar({className}:GearStoreBarProps) {
         <X className={cn(`${isOpen? 'block' : 'hidden'}`,'min-w-min')}/>
       </Button>
       <Card className={cn(`${isOpen? 'block' : 'hidden'}`,"mx-2 ")}>
-        <CardContent className="p-2 ">
+        <CardContent className="p-2 h-[85vh] overflow-auto ">
           <GearSearch />
         </CardContent>
       </Card>

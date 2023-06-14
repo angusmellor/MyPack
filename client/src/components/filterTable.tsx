@@ -20,12 +20,7 @@ import {
 } from "./ui/table"
 
 import { Input } from './ui/input'
-
 import { useState } from "react"
-// import { DraggableRow } from "./ui/draggable"
-// import { createPortal } from "react-dom"
-// import { DragOverlay } from "@dnd-kit/core"
-
 
 interface FilterTableProps<TData, TValue> {
   columns: ColumnDef<TData,TValue>[]

@@ -30,9 +30,10 @@ type ItemFormProps = {
   setter?: React.Dispatch<React.SetStateAction<Item[]>>
   packId?: number
   categoryId: number
+  setPackItems?: React.Dispatch<React.SetStateAction<Item[]>>
 }
 
-export function ItemForm ({packId, categoryId}: ItemFormProps) {
+export function ItemForm ({packId, categoryId, setPackItems}: ItemFormProps) {
 
   const userId = useContext(userContext)
 
@@ -53,6 +54,10 @@ export function ItemForm ({packId, categoryId}: ItemFormProps) {
       if (packId) {
         const connection = await apiService.connectItemToPack(addedItem.id, packId)
         console.log(connection)
+      }
+      if (setPackItems && packId) {
+        const items = await apiService.getPackItems(packId);
+        setPackItems(items[0].packItems)
       }
     }
     addItem(item);    

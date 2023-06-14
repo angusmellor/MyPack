@@ -11,10 +11,11 @@ type UserItemsProps = {
   className?: string
   items: Item[]
   categories: Cat[],
-  colorPalette: string[]
+  colorPalette: string[],
+  setPackItems: React.Dispatch<React.SetStateAction<Item[]>>
 }
 
-export function PackItems({className, items, categories, colorPalette}: UserItemsProps) {
+export function PackItems({className, items, categories, colorPalette, setPackItems}: UserItemsProps) {
 
   const { packId } = useParams();
   
@@ -39,6 +40,7 @@ export function PackItems({className, items, categories, colorPalette}: UserItem
                     <ItemForm 
                       packId={Number(packId)} 
                       categoryId={cat.id}
+                      setPackItems={setPackItems}
                   />
                   </PopoverContent>
                 </Popover>

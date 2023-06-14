@@ -1,10 +1,10 @@
 import { FilterTable } from "./filterTable"
 import { Tabs, TabsTrigger, TabsList, TabsContent } from "./ui/tabs"
-import { columns } from "./Tables/itemsColumns"
 import { cn } from "../lib/utils"
 import { useEffect, useState, useContext } from "react"
 import { apiService } from "../apiService"
 import { userContext } from "../userContext"
+import { columns } from "./Tables/itemsColumns"
 
 type GearSearchProps = {
  className?: string
@@ -42,7 +42,7 @@ export function GearSearch ({className}: GearSearchProps) {
           <TabsTrigger value="commGear" className=" text-xs ">Community Gear</TabsTrigger>
         </TabsList>
         <TabsContent value="userGear">
-        <FilterTable columns={columns} data={userItems}/>
+          <FilterTable columns={columns} data={userItems}/>
         </TabsContent>
         <TabsContent value="commGear">
           <FilterTable columns={columns} data={allItems}/>

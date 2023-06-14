@@ -13,6 +13,11 @@ export interface Item {
   weight: number;
   cost: number;
 }
+const handleClick = async (itemId: number, packId: number) => {
+  const item = await apiService.connectItemToPack(itemId, packId);
+  console.log(item);
+  const items = await apiService.getPackItems(packId);
+};
 
 export const columns: ColumnDef<Item>[] = [
   {
@@ -21,18 +26,14 @@ export const columns: ColumnDef<Item>[] = [
       const params = useParams();
       const packId = Number(params.packId)
       const itemId = row.original.id
-      const handleClick = async () => {
-        const item = await apiService.connectItemToPack(itemId, packId)
-        console.log(item)
-      };
-    
+
       return (
         <Button 
-          variant="outline" 
-          className="w-4 rounded-full p-0"
-          onClick={handleClick}
+          variant="default" 
+          className="w-6 h-6 rounded-full p-0"
+          onClick={() => handleClick(itemId, packId)}
         >
-          <Plus className="h-2 w-2" />
+          <Plus className="h-4 w-4" />
         </Button>
       );
     }
@@ -54,7 +55,7 @@ export const columns: ColumnDef<Item>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Weight
-          <ArrowUpDown/>
+          <ArrowUpDown className="ml-2 h-4 w-4"/>
         </Button>
       )
     }
@@ -68,7 +69,7 @@ export const columns: ColumnDef<Item>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Cost
-          <ArrowUpDown/>
+          <ArrowUpDown className="ml-2 h-4 w-4"/>
         </Button>
       )
     }
