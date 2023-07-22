@@ -1,8 +1,8 @@
-import { FilterTable1 } from "./filterTable1"
-import { columns } from "./Tables/itemsColumns"
-import { cn } from "../lib/utils"
+import { FilterTable1 } from "../../components/filterTable1"
+import { columns } from "../../components/Tables/itemsColumns"
+import { cn } from "../../lib/utils"
 import { useEffect, useState } from "react"
-import { apiService } from "../apiService"
+import { apiService } from "../../apiService"
 
 type GearSearchProps = {
  className?: string

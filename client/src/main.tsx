@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './routes/Home.tsx'
-import { UserPack } from './components/userPack.tsx';
-import { UserAllPacks } from './components/userAllPacks.tsx';
+import { UserPack } from './views/PackDashboard/userPack.tsx';
+import { UserAllPacks } from './views/UserPacks/userAllPacks.tsx';
 import { GearSearch } from './components/gearSearch.tsx';
-import { AllUserItems } from './components/allUserItems.tsx';
-import { CommunityGear } from './components/communityGear.tsx';
-import { CommunityPacks } from './components/communityPacks.tsx';
+import { AllUserItems } from './views/UserItems/allUserItems.tsx';
+import { CommunityGear } from './views/CommunityItems/communityGear.tsx';
+import { CommunityPacks } from './views/CommunityPacks/communityPacks.tsx';
 
 const router = createBrowserRouter([
   {

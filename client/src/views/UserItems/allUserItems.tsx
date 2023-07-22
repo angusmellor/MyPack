@@ -1,12 +1,12 @@
-import {Table, TableBody,TableCaption, TableCell, TableHead, TableHeader, TableRow} from "./ui/table"
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Button } from './ui/button';
+import {Table, TableBody,TableCaption, TableCell, TableHead, TableHeader, TableRow} from "../../components/ui/table"
+import { Popover, PopoverContent, PopoverTrigger } from "../../components/ui/popover";
+import { Button } from '../../components/ui/button';
 import { Plus } from 'lucide-react';
-import { ItemForm } from './itemForm';
+import { ItemForm } from '../../components/itemForm';
 import { useContext, useEffect, useState } from "react";
-import { apiService } from "../apiService";
-import { userContext } from "../userContext";
-import { Cat, Item } from "../lib/types";
+import { apiService } from "../../apiService";
+import { userContext } from "../../userContext";
+import { Cat, Item } from "../../lib/types";
 
 type UserItemsProps = {
   className?: string

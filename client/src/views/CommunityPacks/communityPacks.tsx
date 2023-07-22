@@ -1,14 +1,14 @@
 import { Compass, Plus, X } from 'lucide-react';
-import { Button } from './ui/button'
-import { PackForm } from './packForm';
-import { PackImage } from './packImage';
-import { Card, CardContent } from './ui/card';
+import { Button } from '../../components/ui/button'
+import { PackForm } from '../../components/packForm';
+import { PackImage } from '../../components/packImage';
+import { Card, CardContent } from '../../components/ui/card';
 import { useState, useEffect } from 'react';
-import { cn } from '../lib/utils';
-import { apiService } from '../apiService';
-import { Pack } from '../lib/types';
+import { cn } from '../../lib/utils';
+import { apiService } from '../../apiService';
+import { Pack } from '../../lib/types';
 import { useParams } from 'react-router-dom';
-import { Item } from '../lib/types';
+import { Item } from '../../lib/types';
 
 type UserPacksProps = {
   className?: string

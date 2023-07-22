@@ -1,19 +1,19 @@
-import { cn } from "../lib/utils";
+import { cn } from "../../lib/utils";
 import { Compass, Plus } from 'lucide-react'
-import { Button } from "./ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
-import { Badge } from "./ui/badge";
-import { Card, CardContent } from "./ui/card";
-import { PackItems } from "./PackItems";
-import { PackImage } from "./packImage";
-import { GearStoreBar } from "./gearStoreBar";
+import { Button } from "../../components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "../../components/ui/popover";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs"
+import { Badge } from "../../components/ui/badge";
+import { Card, CardContent } from "../../components/ui/card";
+import { PackItems } from "../../components/PackItems";
+import { PackImage } from "../../components/packImage";
+import { GearStoreBar } from "../../components/gearStoreBar";
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState} from "react";
-import { Item, Cat, Pack } from "../lib/types";
-import { apiService } from "../apiService";
-import { userContext } from "../userContext";
-import { Separator } from "./ui/seperator";
+import { Item, Cat, Pack } from "../../lib/types";
+import { apiService } from "../../apiService";
+import { userContext } from "../../userContext";
+import { Separator } from "../../components/ui/seperator";
 
 type UserPackProps = {
   className?: string

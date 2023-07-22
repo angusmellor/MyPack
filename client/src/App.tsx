@@ -1,7 +1,7 @@
 import { apiService } from "./apiService"
 import { SideBar } from "./components/sidebar"
 import { NavBar } from "./components/navbar";
-import { UserAllPacks } from "./components/userAllPacks";
+import { UserAllPacks } from "./views/UserPacks/userAllPacks";
 import { FilterTable } from "./components/filterTable";
 import { columns, Item } from "./components/Tables/itemsColumns";
 
